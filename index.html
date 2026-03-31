@@ -4,248 +4,94 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>數位小達人闖關王</title>
-  <meta name="description" content="適合國小學童使用平板進行的互動式闖關網頁，支援外部題庫與選項亂數排列。" />
-  <script src="config.js"></script>
+  <meta name="description" content="適合國小學生使用的數位素養闖關遊戲，包含網路安全、假訊息辨識、平板搜尋任務。" />
   <style>
     :root {
-      --bg-1: #fff8ef;
-      --bg-2: #eef8ff;
-      --bg-3: #f6f2ff;
-      --card: rgba(255,255,255,0.92);
-      --text: #27415c;
-      --muted: #5f7591;
-      --line: #d9e6f3;
-      --primary: #4f8cff;
-      --primary-2: #7ab4ff;
-      --secondary: #ff9c58;
-      --secondary-2: #ffc67b;
-      --green: #2fb374;
-      --green-2: #9ae4bc;
-      --pink: #ff6fae;
-      --purple: #8b6cff;
-      --danger: #e05656;
-      --yellow: #ffd65b;
-      --shadow: 0 18px 42px rgba(76, 109, 146, 0.18);
-      --radius-xl: 28px;
-      --radius-lg: 22px;
+      --bg1: #f7fbff;
+      --bg2: #eef6ff;
+      --card: #ffffff;
+      --text: #17324d;
+      --muted: #58718d;
+      --line: #d7e4f1;
+      --primary: #2b7fff;
+      --primary-2: #5aa3ff;
+      --success: #22a06b;
+      --warning: #e88d12;
+      --danger: #d64545;
+      --shadow: 0 12px 28px rgba(24, 66, 112, 0.12);
+      --radius-lg: 24px;
       --radius-md: 18px;
-      --tap: 54px;
+      --radius-sm: 14px;
+      --tap: 52px;
     }
 
     * { box-sizing: border-box; }
 
     html, body {
       margin: 0;
+      padding: 0;
       min-height: 100%;
       font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
       color: var(--text);
-      background:
-        radial-gradient(circle at 10% 10%, rgba(255, 214, 91, 0.35), transparent 20%),
-        radial-gradient(circle at 88% 12%, rgba(139, 108, 255, 0.18), transparent 20%),
-        radial-gradient(circle at 82% 85%, rgba(255, 111, 174, 0.18), transparent 20%),
-        linear-gradient(180deg, var(--bg-1), var(--bg-2) 42%, var(--bg-3));
-      background-attachment: fixed;
+      background: linear-gradient(180deg, var(--bg1), var(--bg2));
     }
 
     body {
-      padding: 18px 14px 34px;
-      overflow-x: hidden;
+      padding: 18px 14px 28px;
     }
 
     .app {
-      max-width: 980px;
+      max-width: 920px;
       margin: 0 auto;
-      position: relative;
-    }
-
-    .app:before,
-    .app:after {
-      content: "";
-      position: fixed;
-      z-index: 0;
-      border-radius: 999px;
-      filter: blur(10px);
-      opacity: 0.35;
-      pointer-events: none;
-    }
-
-    .app:before {
-      width: 180px;
-      height: 180px;
-      top: 86px;
-      left: -40px;
-      background: #ffe58f;
-    }
-
-    .app:after {
-      width: 220px;
-      height: 220px;
-      right: -50px;
-      bottom: 60px;
-      background: #bddcff;
     }
 
     .hero,
     .panel,
-    .stage-card,
     .result-card,
     .history-card,
-    .info-box,
-    .loader-card {
-      position: relative;
-      z-index: 1;
+    .stage-card {
       background: var(--card);
-      border: 1px solid rgba(255,255,255,0.7);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(6px);
     }
 
     .hero {
-      border-radius: var(--radius-xl);
-      padding: 22px 20px 24px;
+      padding: 22px 18px;
       margin-bottom: 16px;
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.96), rgba(245,250,255,0.94)),
-        linear-gradient(135deg, rgba(255, 221, 126, 0.16), rgba(122, 180, 255, 0.14));
-      overflow: hidden;
+      background: linear-gradient(145deg, #ffffff, #f2f8ff);
     }
 
-    .hero:before {
-      content: "★";
-      position: absolute;
-      right: 20px;
-      top: 12px;
-      font-size: 24px;
-      color: rgba(255, 156, 88, 0.6);
-      transform: rotate(16deg);
-    }
-
-    .hero:after {
-      content: "☁";
-      position: absolute;
-      right: 54px;
-      bottom: 12px;
-      font-size: 34px;
-      color: rgba(122, 180, 255, 0.35);
-    }
-
-    .hero-top {
+    .title-row {
       display: flex;
       align-items: center;
-      justify-content: space-between;
       gap: 12px;
       flex-wrap: wrap;
     }
 
-    .title-wrap {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .mascot {
-      width: 74px;
-      height: 74px;
-      border-radius: 24px;
-      background: linear-gradient(180deg, #fff7b8, #ffe08b);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 38px;
-      box-shadow: inset 0 2px 0 rgba(255,255,255,0.8), 0 12px 20px rgba(255, 196, 90, 0.28);
-      flex: 0 0 auto;
-    }
-
-    .badge-row,
-    .chips,
-    .stage-badges {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .badge,
-    .chip,
-    .stage-badge,
-    .pill {
+    .badge {
       display: inline-flex;
       align-items: center;
-      min-height: 34px;
-      padding: 7px 12px;
+      gap: 6px;
+      padding: 6px 12px;
       border-radius: 999px;
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.2px;
-    }
-
-    .badge {
-      background: #edf4ff;
+      background: #e9f3ff;
       color: var(--primary);
-      border: 1px solid #d8e7ff;
-    }
-
-    .chip {
-      background: #fff5e8;
-      color: #b86716;
-      border: 1px solid #ffe1b9;
-    }
-
-    .stage-badge {
-      background: #effaf4;
-      color: var(--green);
-      border: 1px solid #cdeedb;
-    }
-
-    .pill {
-      background: #f6f0ff;
-      color: var(--purple);
-      border: 1px solid #e6dcff;
+      font-size: 14px;
+      font-weight: 700;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(30px, 5.5vw, 42px);
-      line-height: 1.1;
-      letter-spacing: 0.5px;
+      font-size: clamp(28px, 5vw, 38px);
+      line-height: 1.15;
     }
 
     .subtitle {
-      margin: 12px 0 0;
+      margin: 10px 0 0;
       color: var(--muted);
       font-size: 16px;
-      line-height: 1.75;
-    }
-
-    .source-pill {
-      background: #ffffff;
-      border: 1px solid #e6eef7;
-      color: var(--muted);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
-    }
-
-    .loader-card {
-      border-radius: var(--radius-xl);
-      padding: 28px 18px;
-      text-align: center;
-      margin-bottom: 16px;
-    }
-
-    .loader-emoji {
-      font-size: 42px;
-      margin-bottom: 10px;
-    }
-
-    .loader-text {
-      font-size: 18px;
-      font-weight: 900;
-    }
-
-    .loader-subtext {
-      margin-top: 8px;
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 14px;
+      line-height: 1.6;
     }
 
     .grid {
@@ -258,11 +104,7 @@
       margin-bottom: 16px;
     }
 
-    .panel,
-    .stage-card,
-    .result-card,
-    .history-card {
-      border-radius: var(--radius-xl);
+    .panel {
       padding: 18px;
     }
 
@@ -271,15 +113,8 @@
     .result-title,
     .history-title {
       margin: 0 0 12px;
-      font-size: 23px;
+      font-size: 22px;
       line-height: 1.2;
-    }
-
-    .panel h2 .emoji,
-    .history-title .emoji,
-    .stage-title .emoji,
-    .result-title .emoji {
-      margin-right: 6px;
     }
 
     .field-row {
@@ -296,116 +131,34 @@
     }
 
     .field label {
+      font-weight: 700;
       font-size: 15px;
-      font-weight: 900;
     }
 
     .field input,
     .field textarea {
       width: 100%;
-      border: 2px solid #d8e7f4;
-      border-radius: 18px;
+      border: 2px solid var(--line);
+      border-radius: 16px;
       padding: 14px 14px;
       font-size: 16px;
       color: var(--text);
-      background: rgba(255,255,255,0.96);
+      background: #fff;
       outline: none;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
     }
 
     .field input:focus,
     .field textarea:focus {
       border-color: var(--primary-2);
-      box-shadow: 0 0 0 4px rgba(79, 140, 255, 0.12);
-      transform: translateY(-1px);
+      box-shadow: 0 0 0 4px rgba(90, 163, 255, 0.15);
     }
 
-    .help,
-    .mini-note,
-    .stage-subtitle,
-    .history-meta,
-    .result-meta,
-    .loader-subtext {
+    .help {
       color: var(--muted);
-      font-size: 14px;
-      line-height: 1.7;
+      font-size: 13px;
+      line-height: 1.5;
     }
-
-    .help strong { color: var(--text); }
-
-    .actions,
-    .stage-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 10px;
-    }
-
-    button,
-    .link-btn,
-    .ghost-btn {
-      appearance: none;
-      border: 0;
-      border-radius: 18px;
-      min-height: var(--tap);
-      padding: 12px 18px;
-      font-size: 17px;
-      font-weight: 900;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: transform 0.14s ease, filter 0.14s ease, opacity 0.14s ease;
-      box-shadow: 0 10px 18px rgba(69, 107, 151, 0.08);
-    }
-
-    button:hover,
-    .link-btn:hover,
-    .ghost-btn:hover,
-    button:active,
-    .link-btn:active,
-    .ghost-btn:active {
-      transform: translateY(-2px) scale(1.01);
-      filter: brightness(1.02);
-    }
-
-    .btn-primary {
-      background: linear-gradient(180deg, var(--primary-2), var(--primary));
-      color: #fff;
-    }
-
-    .btn-secondary {
-      background: linear-gradient(180deg, #ffbf7c, var(--secondary));
-      color: #fff;
-    }
-
-    .btn-light {
-      background: #fff;
-      color: var(--text);
-      border: 1px solid #dbe9f7;
-    }
-
-    .btn-success {
-      background: linear-gradient(180deg, #7ed9a8, var(--green));
-      color: #fff;
-    }
-
-    .ghost-btn {
-      background: #f7fbff;
-      color: var(--primary);
-      border: 1px dashed #cfe0f7;
-    }
-
-    .warning-inline {
-      color: var(--danger);
-      font-size: 14px;
-      font-weight: 800;
-      margin-top: 8px;
-    }
-
-    .hidden { display: none !important; }
 
     .level-grid {
       display: grid;
@@ -414,77 +167,119 @@
 
     .level-card {
       position: relative;
-      border: 2px solid #dce9f6;
-      border-radius: 22px;
-      padding: 16px 16px 15px;
-      background: rgba(255,255,255,0.95);
+      border: 2px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
       cursor: pointer;
-      overflow: hidden;
       transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+      background: #fff;
     }
 
     .level-card:hover,
     .level-card:active {
-      transform: translateY(-3px);
-      border-color: #9fd0ff;
+      transform: translateY(-2px);
+      border-color: var(--primary-2);
     }
 
     .level-card.active {
       border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(79, 140, 255, 0.12);
-      background: linear-gradient(180deg, #ffffff, #f5fbff);
+      box-shadow: 0 0 0 4px rgba(43, 127, 255, 0.12);
+      background: linear-gradient(180deg, #ffffff, #f6fbff);
     }
-
-    .level-card:before {
-      content: "";
-      position: absolute;
-      right: -12px;
-      top: -12px;
-      width: 76px;
-      height: 76px;
-      border-radius: 999px;
-      background: rgba(122, 180, 255, 0.14);
-    }
-
-    .level-top {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .level-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      flex: 0 0 auto;
-      box-shadow: inset 0 2px 0 rgba(255,255,255,0.7);
-    }
-
-    .level-icon.easy { background: linear-gradient(180deg, #fff4ac, #ffd96f); }
-    .level-icon.medium { background: linear-gradient(180deg, #bce8ff, #7dc8ff); }
-    .level-icon.hard { background: linear-gradient(180deg, #d6c4ff, #a990ff); }
 
     .level-title {
-      margin: 0 0 4px;
+      margin: 0 0 6px;
       font-size: 20px;
-      font-weight: 900;
+      font-weight: 800;
     }
 
     .level-desc {
-      margin: 8px 0 0;
+      margin: 0;
       color: var(--muted);
-      line-height: 1.65;
+      line-height: 1.55;
       font-size: 14px;
     }
 
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #eef5fb;
+      color: #35546f;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    button,
+    .link-btn {
+      appearance: none;
+      border: 0;
+      border-radius: 16px;
+      min-height: var(--tap);
+      padding: 12px 18px;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.15s ease, filter 0.15s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    button:hover,
+    .link-btn:hover,
+    button:active,
+    .link-btn:active {
+      transform: translateY(-1px);
+      filter: brightness(1.02);
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, var(--primary-2), var(--primary));
+      color: #fff;
+      box-shadow: 0 10px 18px rgba(43, 127, 255, 0.18);
+    }
+
+    .btn-secondary {
+      background: #eef5ff;
+      color: var(--primary);
+      border: 1px solid #d8e9ff;
+    }
+
+    .btn-light {
+      background: #fff;
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    .btn-success {
+      background: #e9fff4;
+      color: var(--success);
+      border: 1px solid #c8f0db;
+    }
+
+    .hidden { display: none !important; }
+
     .game-shell {
       margin-top: 8px;
-      position: relative;
-      z-index: 1;
     }
 
     .stage-topbar {
@@ -496,9 +291,12 @@
     }
 
     .info-box {
-      flex: 1 1 220px;
-      border-radius: 22px;
+      flex: 1 1 200px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
       padding: 14px 16px;
+      box-shadow: var(--shadow);
     }
 
     .info-label {
@@ -506,7 +304,7 @@
       font-size: 13px;
       color: var(--muted);
       margin-bottom: 6px;
-      font-weight: 800;
+      font-weight: 700;
     }
 
     .info-value {
@@ -514,12 +312,15 @@
       font-weight: 900;
     }
 
-    .timer-value { color: var(--danger); }
+    .timer-value {
+      color: var(--danger);
+      letter-spacing: 1px;
+    }
 
     .progress {
       width: 100%;
-      height: 14px;
-      background: #edf3fb;
+      height: 12px;
+      background: #edf3f8;
       border-radius: 999px;
       overflow: hidden;
       margin-top: 10px;
@@ -528,54 +329,46 @@
     .progress-bar {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #ffd971, #ff9c58, #4f8cff);
+      background: linear-gradient(90deg, #6ab7ff, #2b7fff);
+      transition: width 0.3s ease;
       border-radius: 999px;
-      transition: width 0.35s ease;
     }
 
-    .stage-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
+    .stage-card {
+      padding: 20px;
+      margin-bottom: 14px;
     }
 
-    .question-card,
-    .scenario-box,
-    .search-box,
-    .result-item,
-    .history-item {
-      border: 1px solid #deebf7;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.95);
-    }
-
-    .question-card {
-      padding: 14px;
-      margin-bottom: 12px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
-    }
-
-    .question-title,
-    .search-task {
-      font-size: 18px;
-      font-weight: 900;
-      margin: 0 0 10px;
-      line-height: 1.65;
-    }
-
-    .question-hint {
-      margin-top: 8px;
+    .stage-subtitle {
+      margin: 0 0 14px;
       color: var(--muted);
-      font-size: 14px;
+      font-size: 15px;
       line-height: 1.6;
     }
 
-    .option-grid,
-    .result-list,
-    .history-list {
+    .question-card {
+      border: 2px solid #e7f0f8;
+      border-radius: 18px;
+      padding: 14px;
+      margin-bottom: 12px;
+      background: #fbfdff;
+    }
+
+    .question-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin: 0 0 10px;
+      line-height: 1.5;
+    }
+
+    .question-hint {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+      margin: 8px 0 0;
+    }
+
+    .option-grid {
       display: grid;
       gap: 10px;
     }
@@ -584,26 +377,21 @@
     .check-item {
       width: 100%;
       min-height: var(--tap);
-      border-radius: 18px;
-      border: 2px solid #d8e6f4;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 2px solid var(--line);
       background: #fff;
       text-align: left;
       font-size: 16px;
-      font-weight: 800;
+      font-weight: 700;
       color: var(--text);
-      padding: 12px 14px;
-      box-shadow: none;
-    }
-
-    .choice-btn {
-      justify-content: flex-start;
     }
 
     .choice-btn.selected,
     .check-item.selected {
       border-color: var(--primary);
-      background: linear-gradient(180deg, #f8fbff, #eef6ff);
-      box-shadow: 0 0 0 4px rgba(79, 140, 255, 0.1);
+      background: #eef6ff;
+      box-shadow: 0 0 0 4px rgba(43, 127, 255, 0.1);
     }
 
     .check-item {
@@ -620,48 +408,78 @@
       flex: 0 0 auto;
     }
 
-    .scenario-box,
-    .search-box {
-      padding: 15px;
-      line-height: 1.75;
+    .scenario-box {
+      background: #f7fbff;
+      border: 1px dashed #bdd8f2;
+      border-radius: 16px;
+      padding: 14px;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #23415f;
       margin-bottom: 12px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(247,251,255,0.96));
     }
 
-    .cards-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 12px;
+    .stage-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .feedback {
+      margin-top: 16px;
+      border-radius: 18px;
+      padding: 14px 16px;
+      line-height: 1.7;
+      font-size: 15px;
+      border: 1px solid transparent;
+    }
+
+    .feedback.success {
+      background: #ecfff4;
+      border-color: #bde6cf;
+      color: #1b7048;
+    }
+
+    .feedback.fail {
+      background: #fff4f4;
+      border-color: #f0c4c4;
+      color: #9d2f2f;
+    }
+
+    .search-box {
+      border: 2px dashed #caddf0;
+      border-radius: 20px;
+      padding: 16px;
+      background: #fafdff;
+    }
+
+    .search-task {
+      font-size: 18px;
+      font-weight: 900;
+      line-height: 1.6;
+      margin: 0 0 10px;
+    }
+
+    .mini-note {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 8px 0 0;
     }
 
     .answer-area {
       margin-top: 12px;
     }
 
-    .feedback {
-      margin-top: 16px;
-      border-radius: 20px;
-      padding: 14px 16px;
-      line-height: 1.75;
-      font-size: 15px;
-      border: 1px solid transparent;
-    }
-
-    .feedback.success {
-      background: #eefff5;
-      border-color: #c9efd9;
-      color: #1d6e49;
-    }
-
-    .feedback.fail {
-      background: #fff4f4;
-      border-color: #f1cccc;
-      color: #9d3232;
+    .result-card,
+    .history-card {
+      padding: 20px;
+      margin-top: 14px;
     }
 
     .score-big {
-      font-size: clamp(42px, 9vw, 66px);
+      font-size: clamp(38px, 8vw, 60px);
       font-weight: 900;
       line-height: 1;
       margin: 2px 0 10px;
@@ -671,50 +489,150 @@
     .result-tag {
       display: inline-flex;
       align-items: center;
-      min-height: 40px;
+      min-height: 38px;
       padding: 8px 14px;
       border-radius: 999px;
       font-weight: 900;
-      background: linear-gradient(180deg, #fff5bf, #ffe28a);
-      color: #946100;
+      background: #eaf4ff;
+      color: var(--primary);
       margin-bottom: 10px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
     }
 
     .result-summary {
-      line-height: 1.8;
-      color: #31506d;
+      line-height: 1.7;
+      color: #284766;
       margin: 0 0 12px;
+    }
+
+    .result-list,
+    .history-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
     }
 
     .result-item,
     .history-item {
-      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px 14px;
+      background: #fff;
     }
+
+    .history-meta,
+    .result-meta {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      margin-top: 4px;
+    }
+
+    .victory-screen {
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      border: 2px solid #ffe092;
+      border-radius: 28px;
+      padding: 28px 18px 24px;
+      margin-bottom: 14px;
+      background:
+        radial-gradient(circle at 15% 18%, rgba(255,255,255,0.82), transparent 18%),
+        radial-gradient(circle at 84% 20%, rgba(255,255,255,0.7), transparent 16%),
+        linear-gradient(135deg, #fff6ba 0%, #ffd86e 28%, #ffb86b 58%, #8fc8ff 100%);
+      box-shadow: 0 18px 42px rgba(255, 178, 59, 0.24);
+    }
+
+    .victory-screen:before,
+    .victory-screen:after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 999px;
+      opacity: 0.22;
+      pointer-events: none;
+    }
+
+    .victory-screen:before {
+      left: -38px;
+      bottom: -58px;
+      background: #ffffff;
+    }
+
+    .victory-screen:after {
+      right: -44px;
+      top: -56px;
+      background: #fff1a3;
+    }
+
+    .victory-sparkles {
+      font-size: clamp(24px, 5vw, 34px);
+      letter-spacing: 6px;
+      margin-bottom: 8px;
+    }
+
+    .victory-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 40px;
+      padding: 9px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.9);
+      color: #b66b00;
+      font-size: 15px;
+      font-weight: 900;
+      box-shadow: 0 8px 18px rgba(255,255,255,0.24);
+    }
+
+    .victory-title {
+      margin: 14px 0 10px;
+      font-size: clamp(34px, 9vw, 72px);
+      line-height: 1.08;
+      font-weight: 900;
+      color: #1f4367;
+      text-shadow: 0 2px 0 rgba(255,255,255,0.5);
+    }
+
+    .victory-subtitle {
+      margin: 0 auto;
+      max-width: 720px;
+      color: #335777;
+      font-size: clamp(16px, 3.8vw, 22px);
+      line-height: 1.75;
+      font-weight: 800;
+    }
+
+    .victory-team {
+      margin-top: 14px;
+      color: #456784;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
 
     .footer-note {
       text-align: center;
       color: var(--muted);
       font-size: 13px;
       margin-top: 18px;
-      line-height: 1.8;
-      position: relative;
-      z-index: 1;
+      line-height: 1.6;
     }
 
-    .tiny {
-      font-size: 12px;
+    .warning-inline {
+      color: var(--danger);
+      font-weight: 700;
+      margin-top: 8px;
+      font-size: 14px;
     }
 
-    @media (max-width: 820px) {
+    @media (max-width: 780px) {
       .setup-grid,
-      .field-row,
-      .cards-2 {
+      .field-row {
         grid-template-columns: 1fr;
       }
 
       body {
-        padding: 14px 12px 26px;
+        padding: 14px 12px 24px;
       }
 
       .hero,
@@ -722,56 +640,38 @@
       .stage-card,
       .result-card,
       .history-card,
-      .info-box,
-      .loader-card {
-        border-radius: 24px;
-      }
-
-      .mascot {
-        width: 66px;
-        height: 66px;
-        font-size: 34px;
+      .info-box {
+        border-radius: 20px;
       }
 
       .question-title,
       .search-task {
         font-size: 17px;
       }
+
+      .info-value {
+        font-size: 18px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="app">
-    <section class="loader-card" id="loaderSection">
-      <div class="loader-emoji">🚀</div>
-      <div class="loader-text">正在準備闖關任務...</div>
-      <div class="loader-subtext">題庫載入完成後，就可以開始玩囉！</div>
-    </section>
-
-    <section class="hero hidden" id="homeSection">
-      <div class="hero-top">
-        <div class="title-wrap">
-          <div class="mascot">🧠</div>
-          <div>
-            <div class="badge-row">
-              <div class="badge">數位小達人</div>
-              <div class="badge">5分鐘合作闖關</div>
-              <div class="badge">平板友善</div>
-            </div>
-            <h1 id="heroTitle">數位小達人闖關王</h1>
-            <p class="subtitle" id="heroSubtitle">
-              和同學一起挑戰網路安全、假訊息辨識、平板搜尋任務，
-              5 分鐘內完成關卡，看看你們能不能成為最強數位小隊！
-            </p>
-          </div>
-        </div>
-        <div class="pill source-pill" id="sourcePill">題庫來源：載入中</div>
+    <section class="hero" id="homeSection">
+      <div class="title-row">
+        <div class="badge">數位小達人</div>
+        <div class="badge">5分鐘小組闖關</div>
       </div>
+      <h1>數位小達人闖關王</h1>
+      <p class="subtitle">
+        適合平板操作的班級闖關網頁。每組 5 人合作，在 5 分鐘內完成<br>
+        <strong>網路安全判斷</strong>、<strong>假訊息辨識</strong>、<strong>平板快速搜尋</strong> 三個任務。
+      </p>
     </section>
 
-    <div class="grid setup-grid hidden" id="setupArea">
+    <div class="grid setup-grid" id="setupArea">
       <section class="panel">
-        <h2><span class="emoji">🎒</span>開始前先設定</h2>
+        <h2>開始前先設定</h2>
         <div class="field-row">
           <div class="field">
             <label for="className">班級</label>
@@ -785,28 +685,24 @@
         <div class="field">
           <label for="memberNames">組員（可選填）</label>
           <input id="memberNames" type="text" placeholder="例如：小安、小庭、小琪、小宥、小晴" maxlength="80" />
+          <div class="help">這個版本會把成績存在本機裝置，方便同一台平板輪流闖關。</div>
         </div>
         <div class="chips">
-          <span class="chip">隊長</span>
+          <span class="chip">角色建議：隊長</span>
           <span class="chip">作答員</span>
           <span class="chip">記錄員</span>
           <span class="chip">平板操作員</span>
           <span class="chip">報告員</span>
         </div>
-        <div class="help" style="margin-top:10px;">
-          <strong>老師提示：</strong>題目可改由外部題庫載入。這一版支援 <strong>本機題庫、JSON、JSONP</strong>，
-          前端可以放在 GitHub Pages，題目內容可由後端維護。
-        </div>
         <div class="actions">
           <button class="btn-primary" id="startBtn">開始闖關</button>
           <button class="btn-secondary" id="demoBtn">快速試玩</button>
-          <button class="btn-light" id="reloadBankBtn">重新載入題庫</button>
         </div>
         <div class="warning-inline hidden" id="startWarning">請先選擇一個闖關等級。</div>
       </section>
 
       <section class="panel">
-        <h2><span class="emoji">🗺️</span>選擇闖關等級</h2>
+        <h2>選擇闖關等級</h2>
         <div class="level-grid" id="levelGrid"></div>
       </section>
     </div>
@@ -833,8 +729,8 @@
 
     <section class="result-card hidden" id="resultSection"></section>
 
-    <section class="history-card hidden" id="historySection">
-      <h2 class="history-title"><span class="emoji">🏁</span>本機闖關紀錄</h2>
+    <section class="history-card" id="historySection">
+      <h2 class="history-title">本機闖關紀錄</h2>
       <div class="help">只會保存在目前這台平板或電腦，不會自動上傳到網路。</div>
       <div class="history-list" id="historyList"></div>
       <div class="actions">
@@ -842,223 +738,207 @@
       </div>
     </section>
 
-    <div class="footer-note hidden" id="footerNote">
-      前端可直接部署到 GitHub Pages。<br>
-      題庫可改由 <strong>questions.json</strong>、外部 JSON API、或 Apps Script JSONP 後端提供。<br>
-      選項若未設定固定順序，系統會自動亂數排列，降低左右互看抄答案的機會。
+    <div class="footer-note">
+      本頁面可直接放到 GitHub Pages。<br>
+      若之後需要「老師端統計分數 / Google 表單回傳 / 班級排行榜」，可以再加上後端版本。
     </div>
   </div>
 
   <script>
     (function () {
-      var STORAGE_KEY = 'digital-quiz-history-v2';
+      var STORAGE_KEY = 'digital-quiz-history-v1';
       var DEFAULT_TIME = 300;
       var timerId = null;
-      var levels = null;
-      var bankMeta = {};
-      var currentSourceLabel = '內建題庫';
 
-      var FALLBACK_BANK = {
-        meta: {
-          title: '數位小達人闖關王',
-          subtitle: '和同學一起挑戰網路安全、假訊息辨識、平板搜尋任務，5 分鐘內完成關卡，看看你們能不能成為最強數位小隊！'
+      var levels = {
+        easy: {
+          label: '簡單級',
+          grade: '1～2年級',
+          description: '題目短、按鈕大，適合低年級一起合作判斷。',
+          chips: ['低年級', '圈叉判斷', '1題搜尋'],
+          stages: [
+            {
+              id: 'safety',
+              title: '第一關｜網路安全判斷',
+              subtitle: '看題目後一起選「對」或「不對」。答對 2 題以上就過關。',
+              type: 'truefalse',
+              passScore: 2,
+              questions: [
+                { text: '不認識的人在網路上問我家住哪裡，我可以直接告訴他。', correct: false, explanation: '個人資料不能隨便告訴陌生人。' },
+                { text: '看到不明連結時，先不要亂點，應該問老師或家長。', correct: true, explanation: '遇到陌生連結要先停下來、先確認。' },
+                { text: '我的帳號密碼可以借給同學一起使用。', correct: false, explanation: '帳號和密碼要保護好，不能隨便分享。' }
+              ]
+            },
+            {
+              id: 'misinfo',
+              title: '第二關｜假訊息辨識',
+              subtitle: '看到訊息時，先想一想：要不要查證？答對 2 題以上就過關。',
+              type: 'verify',
+              passScore: 2,
+              questions: [
+                { text: '「轉傳這則訊息，今晚就會得到神秘禮物！」', correct: 'verify', explanation: '這種要求立刻轉傳的訊息，要先查證。' },
+                { text: '「今天會不會下雨，可以查看氣象資訊。」', correct: 'trust', explanation: '天氣資訊可以看正式的氣象資料。' },
+                { text: '「喝一瓶神奇飲料就永遠不會生病。」', correct: 'verify', explanation: '太誇張的說法要先查證，不要馬上相信。' }
+              ]
+            },
+            {
+              id: 'search',
+              title: '第三關｜平板快速搜尋',
+              subtitle: '先想關鍵字，再用平板搜尋，最後輸入你們找到的答案。',
+              type: 'search',
+              task: '請搜尋：台灣最高的山是什麼？',
+              suggestion: '可以試試看關鍵字：台灣 最高的山',
+              defaultQuery: '台灣 最高的山',
+              evaluator: function (answer) {
+                var normalized = normalize(answer);
+                return normalized.indexOf('玉山') !== -1;
+              },
+              answerHint: '請輸入你們查到的答案，例如：玉山',
+              successText: '答對了，台灣最高的山是玉山。',
+              failText: '還差一點，常見答案是「玉山」。'
+            }
+          ]
         },
-        levels: {
-          easy: {
-            label: '簡單級',
-            grade: '1～2年級',
-            description: '題目短、按鈕大，適合低年級一起合作判斷。',
-            emoji: '🐣',
-            chips: ['低年級', '大按鈕', '合作作答'],
-            stages: [
-              {
-                id: 'safety',
-                title: '第一關｜網路安全判斷',
-                subtitle: '看題目後一起選「對」或「不對」。答對 2 題以上就過關。',
-                type: 'truefalse',
-                passScore: 2,
-                shuffleOptions: true,
-                questions: [
-                  { text: '不認識的人在網路上問我家住哪裡，我可以直接告訴他。', correct: false, explanation: '個人資料不能隨便告訴陌生人。' },
-                  { text: '看到不明連結時，先不要亂點，應該問老師或家長。', correct: true, explanation: '遇到陌生連結要先停下來、先確認。' },
-                  { text: '我的帳號密碼可以借給同學一起使用。', correct: false, explanation: '帳號和密碼要保護好，不能隨便分享。' }
-                ]
-              },
-              {
-                id: 'misinfo',
-                title: '第二關｜假訊息辨識',
-                subtitle: '看到訊息時，先想一想：要不要查證？答對 2 題以上就過關。',
-                type: 'verify',
-                passScore: 2,
-                shuffleOptions: true,
-                questions: [
-                  { text: '「轉傳這則訊息，今晚就會得到神秘禮物！」', correct: 'verify', explanation: '這種要求立刻轉傳的訊息，要先查證。' },
-                  { text: '「今天會不會下雨，可以查看氣象資訊。」', correct: 'trust', explanation: '天氣資訊可以看正式的氣象資料。' },
-                  { text: '「喝一瓶神奇飲料就永遠不會生病。」', correct: 'verify', explanation: '太誇張的說法要先查證，不要馬上相信。' }
-                ]
-              },
-              {
-                id: 'search',
-                title: '第三關｜平板快速搜尋',
-                subtitle: '先想關鍵字，再用平板搜尋，最後輸入你們找到的答案。',
-                type: 'search',
-                task: '請搜尋：台灣最高的山是什麼？',
-                suggestion: '先想主題，再想要找的是哪一類資訊。',
-                keywordPlaceholder: '例如：台灣 最高 山',
-                validation: {
-                  minGroups: 1,
-                  groups: [['玉山']]
+        medium: {
+          label: '中等級',
+          grade: '3～4年級',
+          description: '加入情境討論與關鍵字思考，適合中年級合作挑戰。',
+          chips: ['中年級', '情境判斷', '關鍵字搜尋'],
+          stages: [
+            {
+              id: 'safety',
+              title: '第一關｜網路安全判斷',
+              subtitle: '看情境後，選出最安全的做法。答對 2 題以上就過關。',
+              type: 'singlechoice',
+              passScore: 2,
+              questions: [
+                {
+                  text: '有人傳訊息說：「快點這個連結，可以免費領遊戲寶物！」你們覺得怎麼做比較安全？',
+                  options: [
+                    { label: '先點開看看再說', value: 'a' },
+                    { label: '不要亂點，先問老師或家長', value: 'b' },
+                    { label: '直接把連結傳給更多同學', value: 'c' }
+                  ],
+                  correct: 'b',
+                  explanation: '陌生連結不要亂點，先確認最安全。'
                 },
-                answerHint: '請輸入你們查到的答案',
-                successText: '答對了，台灣最高的山是玉山。',
-                failText: '還差一點，常見答案是「玉山」。'
-              }
-            ]
-          },
-          medium: {
-            label: '中等級',
-            grade: '3～4年級',
-            description: '加入情境討論與關鍵字思考，適合中年級合作挑戰。',
-            emoji: '🐬',
-            chips: ['中年級', '情境判斷', '關鍵字搜尋'],
-            stages: [
-              {
-                id: 'safety',
-                title: '第一關｜網路安全判斷',
-                subtitle: '看情境後，選出最安全的做法。答對 2 題以上就過關。',
-                type: 'singlechoice',
-                passScore: 2,
-                shuffleOptions: true,
-                questions: [
-                  {
-                    text: '有人傳訊息說：「快點這個連結，可以免費領遊戲寶物！」你們覺得怎麼做比較安全？',
-                    options: [
-                      { label: '先點開看看再說', value: 'a' },
-                      { label: '不要亂點，先問老師或家長', value: 'b' },
-                      { label: '直接把連結傳給更多同學', value: 'c' }
-                    ],
-                    correct: 'b',
-                    explanation: '陌生連結不要亂點，先確認最安全。'
-                  },
-                  {
-                    text: '同學說想借你的遊戲帳號登入一下，哪個做法比較好？',
-                    options: [
-                      { label: '把帳號密碼直接給他', value: 'a' },
-                      { label: '拒絕分享帳號密碼', value: 'b' },
-                      { label: '把密碼寫在紙上給他', value: 'c' }
-                    ],
-                    correct: 'b',
-                    explanation: '帳號密碼屬於個人資料，不可以隨便分享。'
-                  }
-                ]
+                {
+                  text: '同學說想借你的遊戲帳號登入一下，哪個做法比較好？',
+                  options: [
+                    { label: '把帳號密碼直接給他', value: 'a' },
+                    { label: '拒絕分享帳號密碼', value: 'b' },
+                    { label: '把密碼寫在紙上給他', value: 'c' }
+                  ],
+                  correct: 'b',
+                  explanation: '帳號密碼屬於個人資料，不可以隨便分享。'
+                }
+              ]
+            },
+            {
+              id: 'misinfo',
+              title: '第二關｜假訊息辨識',
+              subtitle: '選出這則訊息裡可疑的地方。至少選對 2 個，而且不要亂選。',
+              type: 'checkboxThreshold',
+              prompt: '緊急通知！今天晚上 12 點後不能睡覺，政府要測試神秘電波，快傳給 10 個人！',
+              choices: [
+                { label: '內容太誇張', correct: true },
+                { label: '沒有清楚來源', correct: true },
+                { label: '要求立刻轉傳', correct: true },
+                { label: '這則訊息一定最可靠', correct: false }
+              ],
+              minCorrect: 2,
+              maxWrong: 0,
+              successText: '你們找到了可疑線索，這類訊息要先停、先想、先查證。',
+              failText: '再觀察看看：太誇張、沒來源、一直叫人轉傳，通常都很可疑。'
+            },
+            {
+              id: 'search',
+              title: '第三關｜平板快速搜尋',
+              subtitle: '試著用關鍵字搜尋，再輸入你們找到的答案。',
+              type: 'search',
+              task: '請搜尋：地震來時要怎麼保護自己？',
+              suggestion: '可以試試看關鍵字：地震 保護自己 或 趴下 掩護 穩住',
+              defaultQuery: '地震 保護自己 趴下 掩護 穩住',
+              evaluator: function (answer) {
+                var normalized = normalize(answer);
+                var hit = 0;
+                if (normalized.indexOf('趴下') !== -1) { hit++; }
+                if (normalized.indexOf('掩護') !== -1) { hit++; }
+                if (normalized.indexOf('穩住') !== -1) { hit++; }
+                return hit >= 2;
               },
-              {
-                id: 'misinfo',
-                title: '第二關｜假訊息辨識',
-                subtitle: '選出這則訊息裡可疑的地方。至少選對 2 個，而且不要亂選。',
-                type: 'checkboxThreshold',
-                prompt: '緊急通知！今天晚上 12 點後不能睡覺，政府要測試神秘電波，快傳給 10 個人！',
-                choices: [
-                  { label: '內容太誇張', correct: true },
-                  { label: '沒有清楚來源', correct: true },
-                  { label: '要求立刻轉傳', correct: true },
-                  { label: '這則訊息一定最可靠', correct: false }
-                ],
-                shuffleChoices: true,
-                minCorrect: 2,
-                maxWrong: 0,
-                successText: '你們找到了可疑線索，這類訊息要先停、先想、先查證。',
-                failText: '再觀察看看：太誇張、沒來源、一直叫人轉傳，通常都很可疑。'
+              answerHint: '請輸入你們找到的重點，例如：趴下、掩護、穩住',
+              successText: '答對了，地震保命重點常見是「趴下、掩護、穩住」。',
+              failText: '可再檢查看看，常見重點是「趴下、掩護、穩住」。'
+            }
+          ]
+        },
+        hard: {
+          label: '略難級',
+          grade: '5～6年級',
+          description: '需要分析、比較與說明理由，適合高年級進階挑戰。',
+          chips: ['高年級', '分析判斷', '理由說明'],
+          stages: [
+            {
+              id: 'safety',
+              title: '第一關｜網路安全判斷',
+              subtitle: '找出情境中的危險行為。至少選對 2 個，而且不要選錯。',
+              type: 'checkboxThreshold',
+              prompt: '小華在留言區公開寫下自己的本名、班級、手機號碼，還點開陌生人傳來的抽獎網址。',
+              choices: [
+                { label: '公開本名和班級', correct: true },
+                { label: '留下手機號碼', correct: true },
+                { label: '點開陌生抽獎網址', correct: true },
+                { label: '先問老師再處理', correct: false }
+              ],
+              minCorrect: 2,
+              maxWrong: 0,
+              successText: '判斷正確，公開個資和亂點連結都很危險。',
+              failText: '再想想看：公開個資、留下手機、點陌生網址都不安全。'
+            },
+            {
+              id: 'misinfo',
+              title: '第二關｜假訊息辨識',
+              subtitle: '選出比較可信的一則，再選理由。要兩個都答對才過關。',
+              type: 'credibility',
+              cards: [
+                { id: 'a', title: '訊息 A', body: '快轉傳！明天全台停課，這是朋友說的！' },
+                { id: 'b', title: '訊息 B', body: '停課資訊請以學校公告或政府正式通知為準。' }
+              ],
+              reasons: [
+                { label: '有明確查證方向', correct: true },
+                { label: '不是只靠朋友轉述', correct: true },
+                { label: '因為看起來比較刺激', correct: false },
+                { label: '因為叫大家快轉傳', correct: false }
+              ],
+              correctCard: 'b',
+              minCorrectReasons: 2,
+              successText: '判斷很好，可信資訊通常有來源或查證方向。',
+              failText: '再想想看：只靠朋友轉述、催人轉傳的訊息比較不可靠。'
+            },
+            {
+              id: 'search',
+              title: '第三關｜平板快速搜尋',
+              subtitle: '搜尋後整理重點，至少寫出 2 個安全密碼原則。',
+              type: 'search',
+              task: '請搜尋：如何設定安全密碼？',
+              suggestion: '可以試試看關鍵字：安全密碼 設定 方法',
+              defaultQuery: '安全密碼 設定 方法',
+              evaluator: function (answer) {
+                var normalized = normalize(answer);
+                var hits = 0;
+                if (normalized.indexOf('不要用生日') !== -1 || normalized.indexOf('不用生日') !== -1 || normalized.indexOf('別用生日') !== -1) { hits++; }
+                if (normalized.indexOf('8碼') !== -1 || normalized.indexOf('至少8') !== -1 || normalized.indexOf('越長越好') !== -1 || normalized.indexOf('長度') !== -1) { hits++; }
+                if (normalized.indexOf('大小寫') !== -1 || normalized.indexOf('英文') !== -1) { hits++; }
+                if (normalized.indexOf('數字') !== -1) { hits++; }
+                if (normalized.indexOf('符號') !== -1) { hits++; }
+                return hits >= 2;
               },
-              {
-                id: 'search',
-                title: '第三關｜平板快速搜尋',
-                subtitle: '試著用關鍵字搜尋，再輸入你們找到的答案。',
-                type: 'search',
-                task: '請搜尋：地震來時要怎麼保護自己？',
-                suggestion: '先想主題，再想保護方法。',
-                keywordPlaceholder: '例如：地震 保護方法',
-                validation: {
-                  minGroups: 2,
-                  groups: [['趴下'], ['掩護'], ['穩住']]
-                },
-                answerHint: '請輸入你們查到的重點',
-                successText: '答對了，地震保命重點常見是「趴下、掩護、穩住」。',
-                failText: '可再檢查看看，常見重點是「趴下、掩護、穩住」。'
-              }
-            ]
-          },
-          hard: {
-            label: '略難級',
-            grade: '5～6年級',
-            description: '需要分析、比較與說明理由，適合高年級進階挑戰。',
-            emoji: '🦉',
-            chips: ['高年級', '分析判斷', '理由說明'],
-            stages: [
-              {
-                id: 'safety',
-                title: '第一關｜網路安全判斷',
-                subtitle: '找出情境中的危險行為。至少選對 2 個，而且不要選錯。',
-                type: 'checkboxThreshold',
-                prompt: '小華在留言區公開寫下自己的本名、班級、手機號碼，還點開陌生人傳來的抽獎網址。',
-                choices: [
-                  { label: '公開本名和班級', correct: true },
-                  { label: '留下手機號碼', correct: true },
-                  { label: '點開陌生抽獎網址', correct: true },
-                  { label: '先問老師再處理', correct: false }
-                ],
-                shuffleChoices: true,
-                minCorrect: 2,
-                maxWrong: 0,
-                successText: '判斷正確，公開個資和亂點連結都很危險。',
-                failText: '再想想看：公開個資、留下手機、點陌生網址都不安全。'
-              },
-              {
-                id: 'misinfo',
-                title: '第二關｜假訊息辨識',
-                subtitle: '選出比較可信的一則，再選理由。要兩個都答對才過關。',
-                type: 'credibility',
-                cards: [
-                  { id: 'a', title: '訊息 A', body: '快轉傳！明天全台停課，這是朋友說的！' },
-                  { id: 'b', title: '訊息 B', body: '停課資訊請以學校公告或政府正式通知為準。' }
-                ],
-                shuffleCardChoices: true,
-                reasons: [
-                  { label: '有明確查證方向', correct: true },
-                  { label: '不是只靠朋友轉述', correct: true },
-                  { label: '因為看起來比較刺激', correct: false },
-                  { label: '因為叫大家快轉傳', correct: false }
-                ],
-                shuffleReasons: true,
-                correctCard: 'b',
-                minCorrectReasons: 2,
-                successText: '判斷很好，可信資訊通常有來源或查證方向。',
-                failText: '再想想看：只靠朋友轉述、催人轉傳的訊息比較不可靠。'
-              },
-              {
-                id: 'search',
-                title: '第三關｜平板快速搜尋',
-                subtitle: '搜尋後整理重點，至少寫出 2 個安全密碼原則。',
-                type: 'search',
-                task: '請搜尋：如何設定安全密碼？',
-                suggestion: '先想主題，再想和密碼有關的做法。',
-                keywordPlaceholder: '例如：安全密碼 設定',
-                validation: {
-                  minGroups: 2,
-                  groups: [
-                    ['不要用生日', '不用生日', '別用生日'],
-                    ['8碼', '至少8', '越長越好', '長度'],
-                    ['大小寫', '英文'],
-                    ['數字'],
-                    ['符號']
-                  ]
-                },
-                answerHint: '請輸入至少 2 個你們查到的原則',
-                successText: '很好，安全密碼通常要夠長，而且不要用太容易猜到的資料。',
-                failText: '可再補充 2 個原則，例如：不要用生日、密碼要夠長、加入數字或符號。'
-              }
-            ]
-          }
+              answerHint: '請輸入至少 2 個原則，例如：不要用生日、密碼要夠長、混合英文大小寫和數字',
+              successText: '很好，安全密碼通常要夠長，而且不要用太容易猜到的資料。',
+              failText: '可再補充 2 個原則，例如：不要用生日、密碼要夠長、加入數字或符號。'
+            }
+          ]
         }
       };
 
@@ -1074,25 +954,18 @@
         finished: false
       };
 
-      var loaderSection = document.getElementById('loaderSection');
-      var homeSection = document.getElementById('homeSection');
-      var setupArea = document.getElementById('setupArea');
-      var gameSection = document.getElementById('gameSection');
-      var resultSection = document.getElementById('resultSection');
-      var historySection = document.getElementById('historySection');
-      var footerNote = document.getElementById('footerNote');
-      var sourcePill = document.getElementById('sourcePill');
-      var heroTitle = document.getElementById('heroTitle');
-      var heroSubtitle = document.getElementById('heroSubtitle');
-      var stageCard = document.getElementById('stageCard');
       var levelGrid = document.getElementById('levelGrid');
       var startBtn = document.getElementById('startBtn');
       var demoBtn = document.getElementById('demoBtn');
-      var reloadBankBtn = document.getElementById('reloadBankBtn');
       var startWarning = document.getElementById('startWarning');
       var classNameInput = document.getElementById('className');
       var teamNameInput = document.getElementById('teamName');
       var memberNamesInput = document.getElementById('memberNames');
+      var homeSection = document.getElementById('homeSection');
+      var setupArea = document.getElementById('setupArea');
+      var gameSection = document.getElementById('gameSection');
+      var resultSection = document.getElementById('resultSection');
+      var stageCard = document.getElementById('stageCard');
       var progressBar = document.getElementById('progressBar');
       var progressText = document.getElementById('progressText');
       var timerText = document.getElementById('timerText');
@@ -1100,13 +973,19 @@
       var historyList = document.getElementById('historyList');
       var clearHistoryBtn = document.getElementById('clearHistoryBtn');
 
-      startBtn.addEventListener('click', function () { startGame(false); });
+      renderLevelCards();
+      renderHistory();
+
+      startBtn.addEventListener('click', function () {
+        startGame(false);
+      });
+
       demoBtn.addEventListener('click', function () {
         if (!classNameInput.value) { classNameInput.value = '試玩班'; }
         if (!teamNameInput.value) { teamNameInput.value = '第1組'; }
         startGame(true);
       });
-      reloadBankBtn.addEventListener('click', function () { initializeApp(true); });
+
       clearHistoryBtn.addEventListener('click', function () {
         var confirmed = window.confirm('確定要清除這台裝置上的所有闖關紀錄嗎？');
         if (!confirmed) { return; }
@@ -1114,167 +993,17 @@
         renderHistory();
       });
 
-      initializeApp(false);
-
-      function initializeApp(forceReload) {
-        showLoader('📦', '正在載入題庫...', '如果老師剛更新後端題目，這裡會重新抓取最新版本。');
-        loadQuestionBank(forceReload).then(function (bankResult) {
-          bankMeta = bankResult.meta || {};
-          levels = bankResult.levels || FALLBACK_BANK.levels;
-          currentSourceLabel = bankResult.sourceLabel || '內建題庫';
-          state.level = getDefaultLevelKey();
-          renderHome();
-          renderLevelCards();
-          renderHistory();
-          loaderSection.classList.add('hidden');
-          homeSection.classList.remove('hidden');
-          setupArea.classList.remove('hidden');
-          historySection.classList.remove('hidden');
-          footerNote.classList.remove('hidden');
-        }).catch(function () {
-          bankMeta = FALLBACK_BANK.meta;
-          levels = FALLBACK_BANK.levels;
-          currentSourceLabel = '內建題庫（載入外部題庫失敗，已改用備援）';
-          state.level = getDefaultLevelKey();
-          renderHome();
-          renderLevelCards();
-          renderHistory();
-          loaderSection.classList.add('hidden');
-          homeSection.classList.remove('hidden');
-          setupArea.classList.remove('hidden');
-          historySection.classList.remove('hidden');
-          footerNote.classList.remove('hidden');
-        });
-      }
-
-      function showLoader(emoji, title, subtitle) {
-        loaderSection.classList.remove('hidden');
-        loaderSection.innerHTML = '' +
-          '<div class="loader-emoji">' + emoji + '</div>' +
-          '<div class="loader-text">' + escapeHtml(title) + '</div>' +
-          '<div class="loader-subtext">' + escapeHtml(subtitle) + '</div>';
-      }
-
-      function renderHome() {
-        heroTitle.textContent = bankMeta.title || FALLBACK_BANK.meta.title;
-        heroSubtitle.textContent = bankMeta.subtitle || FALLBACK_BANK.meta.subtitle;
-        sourcePill.textContent = '題庫來源：' + currentSourceLabel;
-      }
-
-      function getDefaultLevelKey() {
-        if (levels && levels.medium) { return 'medium'; }
-        var keys = Object.keys(levels || {});
-        return keys.length ? keys[0] : 'medium';
-      }
-
-      function loadQuestionBank(forceReload) {
-        var params = new URLSearchParams(window.location.search);
-        var queryUrl = trim(params.get('data'));
-        var queryType = trim(params.get('type'));
-        var globalConfig = window.APP_CONFIG || {};
-        var dataUrl = queryUrl || trim(globalConfig.quizDataUrl);
-        var dataType = (queryType || trim(globalConfig.quizDataType) || '').toLowerCase();
-        var cacheBuster = forceReload ? (dataUrl.indexOf('?') === -1 ? '?' : '&') + '_ts=' + Date.now() : '';
-
-        if (!dataUrl) {
-          return loadJsonFile('questions.json' + (forceReload ? '?_ts=' + Date.now() : ''), '本機 questions.json')
-            .catch(function () {
-              return Promise.resolve({
-                meta: FALLBACK_BANK.meta,
-                levels: FALLBACK_BANK.levels,
-                sourceLabel: '內建題庫'
-              });
-            });
-        }
-
-        if (dataType === 'jsonp') {
-          return loadJsonp(dataUrl + cacheBuster, '外部 JSONP 題庫');
-        }
-
-        return loadJsonFile(dataUrl + cacheBuster, dataUrl === 'questions.json' ? '本機 questions.json' : '外部 JSON 題庫');
-      }
-
-      function loadJsonFile(url, sourceLabel) {
-        return fetch(url, { cache: 'no-store' })
-          .then(function (response) {
-            if (!response.ok) { throw new Error('HTTP ' + response.status); }
-            return response.json();
-          })
-          .then(function (data) {
-            return normalizeBank(data, sourceLabel);
-          });
-      }
-
-      function loadJsonp(url, sourceLabel) {
-        return new Promise(function (resolve, reject) {
-          var callbackName = '__quizBankCallback_' + Date.now();
-          var timeoutId = null;
-          var script = document.createElement('script');
-          var finalUrl = url + (url.indexOf('?') === -1 ? '?' : '&') + 'callback=' + encodeURIComponent(callbackName);
-
-          window[callbackName] = function (data) {
-            cleanup();
-            try {
-              resolve(normalizeBank(data, sourceLabel));
-            } catch (error) {
-              reject(error);
-            }
-          };
-
-          function cleanup() {
-            if (timeoutId) { window.clearTimeout(timeoutId); }
-            if (script && script.parentNode) { script.parentNode.removeChild(script); }
-            try { delete window[callbackName]; } catch (error) { window[callbackName] = undefined; }
-          }
-
-          timeoutId = window.setTimeout(function () {
-            cleanup();
-            reject(new Error('JSONP timeout'));
-          }, 10000);
-
-          script.onerror = function () {
-            cleanup();
-            reject(new Error('JSONP load error'));
-          };
-          script.src = finalUrl;
-          document.body.appendChild(script);
-        });
-      }
-
-      function normalizeBank(data, sourceLabel) {
-        if (!data || typeof data !== 'object') {
-          throw new Error('Invalid bank');
-        }
-        var bankLevels = data.levels;
-        if (!bankLevels || typeof bankLevels !== 'object' || !Object.keys(bankLevels).length) {
-          throw new Error('Missing levels');
-        }
-        return {
-          meta: data.meta || {},
-          levels: bankLevels,
-          sourceLabel: sourceLabel
-        };
-      }
-
       function renderLevelCards() {
-        if (!levels) { return; }
         var html = '';
         Object.keys(levels).forEach(function (key) {
           var item = levels[key];
-          var chips = (item.chips || []).map(function (chip) {
+          var chips = item.chips.map(function (chip) {
             return '<span class="chip">' + escapeHtml(chip) + '</span>';
           }).join('');
-          var iconClass = key === 'easy' ? 'easy' : (key === 'hard' ? 'hard' : 'medium');
           html += '' +
-            '<div class="level-card ' + (state.level === key ? 'active' : '') + '" data-level="' + escapeHtml(key) + '">' +
-              '<div class="level-top">' +
-                '<div class="level-icon ' + iconClass + '">' + escapeHtml(item.emoji || '⭐') + '</div>' +
-                '<div>' +
-                  '<div class="level-title">' + escapeHtml(item.label) + '｜' + escapeHtml(item.grade || '') + '</div>' +
-                  '<div class="help">' + escapeHtml(item.description || '') + '</div>' +
-                '</div>' +
-              '</div>' +
-              '<p class="level-desc">每組約 5 分鐘，合作完成 ' + (item.stages ? item.stages.length : 0) + ' 個任務。</p>' +
+            '<div class="level-card ' + (state.level === key ? 'active' : '') + '" data-level="' + key + '">' +
+              '<div class="level-title">' + escapeHtml(item.label) + '｜' + escapeHtml(item.grade) + '</div>' +
+              '<p class="level-desc">' + escapeHtml(item.description) + '</p>' +
               '<div class="chips">' + chips + '</div>' +
             '</div>';
         });
@@ -1291,8 +1020,7 @@
       }
 
       function startGame(isDemo) {
-        if (!levels || !state.level || !levels[state.level]) {
-          startWarning.textContent = '題庫尚未準備好，請先重新載入題庫。';
+        if (!state.level) {
           startWarning.classList.remove('hidden');
           return;
         }
@@ -1316,8 +1044,6 @@
         gameSection.classList.remove('hidden');
         homeSection.classList.add('hidden');
         setupArea.classList.add('hidden');
-        historySection.classList.add('hidden');
-        footerNote.classList.add('hidden');
         teamDisplay.textContent = buildTeamName();
         updateTimerText();
         startTimer();
@@ -1358,8 +1084,8 @@
 
       function renderCurrentStage() {
         var config = levels[state.level];
-        var stage = clone(config.stages[state.currentStageIndex]);
-        var percent = (state.currentStageIndex / config.stages.length) * 100;
+        var stage = config.stages[state.currentStageIndex];
+        var percent = ((state.currentStageIndex) / config.stages.length) * 100;
         progressBar.style.width = percent + '%';
         progressText.textContent = '第 ' + (state.currentStageIndex + 1) + ' / ' + config.stages.length + ' 關';
 
@@ -1375,39 +1101,29 @@
           renderCredibilityStage(stage);
         } else if (stage.type === 'search') {
           renderSearchStage(stage);
-        } else {
-          stageCard.innerHTML = '<div class="feedback fail">這一關的題型尚未支援：' + escapeHtml(stage.type || '未知') + '</div>';
         }
       }
 
-      function stageHeader(stage) {
-        return '' +
-          '<div class="stage-head">' +
-            '<div>' +
-              '<h2 class="stage-title"><span class="emoji">🎯</span>' + escapeHtml(stage.title) + '</h2>' +
-              '<p class="stage-subtitle">' + escapeHtml(stage.subtitle || '') + '</p>' +
-            '</div>' +
-            '<div class="stage-badges">' +
-              '<span class="stage-badge">合作闖關</span>' +
-              '<span class="stage-badge">限時挑戰</span>' +
-            '</div>' +
-          '</div>';
-      }
-
       function renderTrueFalseStage(stage) {
-        var html = stageHeader(stage);
-        (stage.questions || []).forEach(function (q, index) {
-          var options = [
-            { label: '對', value: 'true' },
-            { label: '不對', value: 'false' }
-          ];
-          if (stage.shuffleOptions !== false) { options = shuffle(options); }
+        var html = '<h2 class="stage-title">' + escapeHtml(stage.title) + '</h2>' +
+          '<p class="stage-subtitle">' + escapeHtml(stage.subtitle) + '</p>';
+
+        stage.questions.forEach(function (q, index) {
           html += '<div class="question-card" data-question-index="' + index + '">' +
             '<div class="question-title">' + (index + 1) + '. ' + escapeHtml(q.text) + '</div>' +
-            '<div class="option-grid">' + renderChoiceButtons(options) + '</div>' +
+            '<div class="option-grid">' +
+              '<button type="button" class="choice-btn" data-value="true">對</button>' +
+              '<button type="button" class="choice-btn" data-value="false">不對</button>' +
+            '</div>' +
           '</div>';
         });
-        html += commonStageFooter();
+
+        html += '<div class="stage-actions">' +
+          '<button class="btn-primary" id="submitStageBtn">送出本關答案</button>' +
+          '<button class="btn-light" id="quitBtn">結束闖關</button>' +
+        '</div>' +
+        '<div id="feedbackWrap"></div>';
+
         stageCard.innerHTML = html;
         bindChoiceButtons(false);
         bindCommonButtons();
@@ -1424,34 +1140,41 @@
               var value = selected.getAttribute('data-value') === 'true';
               if (value === stage.questions[idx].correct) { correctCount++; }
             }
-            details.push((idx + 1) + '. ' + (stage.questions[idx].explanation || ''));
+            details.push((idx + 1) + '. ' + stage.questions[idx].explanation);
           });
           if (answered < stage.questions.length) {
             showInlineFeedback('請先把這一關的題目都作答完成。', false, false);
             return;
           }
+          var passed = correctCount >= stage.passScore;
           submitStageResult({
             title: stage.title,
-            passed: correctCount >= stage.passScore,
+            passed: passed,
             detail: '答對 ' + correctCount + ' / ' + stage.questions.length + ' 題。<br>' + details.join('<br>')
           });
         });
       }
 
       function renderVerifyStage(stage) {
-        var html = stageHeader(stage);
-        (stage.questions || []).forEach(function (q, index) {
-          var options = [
-            { label: '要先查證', value: 'verify' },
-            { label: '較可信', value: 'trust' }
-          ];
-          if (stage.shuffleOptions !== false) { options = shuffle(options); }
+        var html = '<h2 class="stage-title">' + escapeHtml(stage.title) + '</h2>' +
+          '<p class="stage-subtitle">' + escapeHtml(stage.subtitle) + '</p>';
+
+        stage.questions.forEach(function (q, index) {
           html += '<div class="question-card" data-question-index="' + index + '">' +
             '<div class="question-title">' + (index + 1) + '. ' + escapeHtml(q.text) + '</div>' +
-            '<div class="option-grid">' + renderChoiceButtons(options) + '</div>' +
+            '<div class="option-grid">' +
+              '<button type="button" class="choice-btn" data-value="verify">要先查證</button>' +
+              '<button type="button" class="choice-btn" data-value="trust">較可信</button>' +
+            '</div>' +
           '</div>';
         });
-        html += commonStageFooter();
+
+        html += '<div class="stage-actions">' +
+          '<button class="btn-primary" id="submitStageBtn">送出本關答案</button>' +
+          '<button class="btn-light" id="quitBtn">結束闖關</button>' +
+        '</div>' +
+        '<div id="feedbackWrap"></div>';
+
         stageCard.innerHTML = html;
         bindChoiceButtons(false);
         bindCommonButtons();
@@ -1468,33 +1191,41 @@
               var value = selected.getAttribute('data-value');
               if (value === stage.questions[idx].correct) { correctCount++; }
             }
-            details.push((idx + 1) + '. ' + (stage.questions[idx].explanation || ''));
+            details.push((idx + 1) + '. ' + stage.questions[idx].explanation);
           });
           if (answered < stage.questions.length) {
             showInlineFeedback('請先把這一關的題目都作答完成。', false, false);
             return;
           }
+          var passed = correctCount >= stage.passScore;
           submitStageResult({
             title: stage.title,
-            passed: correctCount >= stage.passScore,
+            passed: passed,
             detail: '答對 ' + correctCount + ' / ' + stage.questions.length + ' 題。<br>' + details.join('<br>')
           });
         });
       }
 
       function renderSingleChoiceStage(stage) {
-        var html = stageHeader(stage);
-        (stage.questions || []).forEach(function (q, index) {
-          var options = clone(q.options || []);
-          var shouldShuffle = q.shuffleOptions;
-          if (typeof shouldShuffle === 'undefined') { shouldShuffle = stage.shuffleOptions !== false; }
-          if (shouldShuffle) { options = shuffle(options); }
+        var html = '<h2 class="stage-title">' + escapeHtml(stage.title) + '</h2>' +
+          '<p class="stage-subtitle">' + escapeHtml(stage.subtitle) + '</p>';
+
+        stage.questions.forEach(function (q, index) {
           html += '<div class="question-card" data-question-index="' + index + '">' +
             '<div class="question-title">' + (index + 1) + '. ' + escapeHtml(q.text) + '</div>' +
-            '<div class="option-grid">' + renderChoiceButtons(options) + '</div>' +
-          '</div>';
+            '<div class="option-grid">';
+          q.options.forEach(function (option) {
+            html += '<button type="button" class="choice-btn" data-value="' + escapeHtml(option.value) + '">' + escapeHtml(option.label) + '</button>';
+          });
+          html += '</div></div>';
         });
-        html += commonStageFooter();
+
+        html += '<div class="stage-actions">' +
+          '<button class="btn-primary" id="submitStageBtn">送出本關答案</button>' +
+          '<button class="btn-light" id="quitBtn">結束闖關</button>' +
+        '</div>' +
+        '<div id="feedbackWrap"></div>';
+
         stageCard.innerHTML = html;
         bindChoiceButtons(false);
         bindCommonButtons();
@@ -1510,27 +1241,41 @@
               answered++;
               if (selected.getAttribute('data-value') === stage.questions[idx].correct) { correctCount++; }
             }
-            details.push((idx + 1) + '. ' + (stage.questions[idx].explanation || ''));
+            details.push((idx + 1) + '. ' + stage.questions[idx].explanation);
           });
           if (answered < stage.questions.length) {
             showInlineFeedback('請先完成所有題目再送出。', false, false);
             return;
           }
+          var passed = correctCount >= stage.passScore;
           submitStageResult({
             title: stage.title,
-            passed: correctCount >= stage.passScore,
+            passed: passed,
             detail: '答對 ' + correctCount + ' / ' + stage.questions.length + ' 題。<br>' + details.join('<br>')
           });
         });
       }
 
       function renderCheckboxStage(stage) {
-        var choices = clone(stage.choices || []);
-        if (stage.shuffleChoices !== false) { choices = shuffle(choices); }
-        var html = stageHeader(stage) +
-          '<div class="scenario-box">' + escapeHtml(stage.prompt || '') + '</div>' +
-          '<div class="question-card"><div class="option-grid">' + renderCheckboxItems(choices) + '</div></div>' +
-          commonStageFooter();
+        var html = '<h2 class="stage-title">' + escapeHtml(stage.title) + '</h2>' +
+          '<p class="stage-subtitle">' + escapeHtml(stage.subtitle) + '</p>' +
+          '<div class="scenario-box">' + escapeHtml(stage.prompt) + '</div>' +
+          '<div class="question-card"><div class="option-grid">';
+
+        stage.choices.forEach(function (choice, idx) {
+          html += '<label class="check-item" data-check-index="' + idx + '">' +
+            '<input type="checkbox" data-correct="' + (choice.correct ? 'true' : 'false') + '" />' +
+            '<span>' + escapeHtml(choice.label) + '</span>' +
+          '</label>';
+        });
+
+        html += '</div></div>' +
+          '<div class="stage-actions">' +
+            '<button class="btn-primary" id="submitStageBtn">送出本關答案</button>' +
+            '<button class="btn-light" id="quitBtn">結束闖關</button>' +
+          '</div>' +
+          '<div id="feedbackWrap"></div>';
+
         stageCard.innerHTML = html;
         bindCheckboxStyles();
         bindCommonButtons();
@@ -1551,7 +1296,7 @@
             showInlineFeedback('請先勾選至少一個答案。', false, false);
             return;
           }
-          var passed = correctHits >= Number(stage.minCorrect || 1) && wrongHits <= Number(stage.maxWrong || 0);
+          var passed = correctHits >= stage.minCorrect && wrongHits <= stage.maxWrong;
           submitStageResult({
             title: stage.title,
             passed: passed,
@@ -1561,30 +1306,42 @@
       }
 
       function renderCredibilityStage(stage) {
-        var cards = clone(stage.cards || []);
-        var cardOptions = clone(cards).map(function (card) {
-          return { label: '選擇 ' + (card.title || card.id), value: card.id };
-        });
-        if (stage.shuffleCardChoices) { cardOptions = shuffle(cardOptions); }
-        var reasons = clone(stage.reasons || []);
-        if (stage.shuffleReasons !== false) { reasons = shuffle(reasons); }
+        var html = '<h2 class="stage-title">' + escapeHtml(stage.title) + '</h2>' +
+          '<p class="stage-subtitle">' + escapeHtml(stage.subtitle) + '</p>' +
+          '<div class="grid" style="grid-template-columns:1fr 1fr; gap:12px;">';
 
-        var html = stageHeader(stage) + '<div class="cards-2">';
-        cards.forEach(function (card) {
+        stage.cards.forEach(function (card) {
           html += '<div class="question-card">' +
-            '<div class="question-title">' + escapeHtml(card.title || '') + '</div>' +
-            '<div class="scenario-box" style="margin-bottom:0;">' + escapeHtml(card.body || '') + '</div>' +
+            '<div class="question-title">' + escapeHtml(card.title) + '</div>' +
+            '<div class="scenario-box" style="margin-bottom:0;">' + escapeHtml(card.body) + '</div>' +
           '</div>';
         });
+
         html += '</div>' +
           '<div class="question-card">' +
             '<div class="question-title">先選出比較可信的一則訊息</div>' +
-            '<div class="option-grid">' + renderChoiceButtons(cardOptions, 'card') + '</div>' +
+            '<div class="option-grid">' +
+              '<button type="button" class="choice-btn" data-group="card" data-value="a">選擇訊息 A</button>' +
+              '<button type="button" class="choice-btn" data-group="card" data-value="b">選擇訊息 B</button>' +
+            '</div>' +
           '</div>' +
           '<div class="question-card">' +
-            '<div class="question-title">再勾選你們的理由（至少選對 ' + escapeHtml(String(stage.minCorrectReasons || 2)) + ' 個）</div>' +
-            '<div class="option-grid">' + renderCheckboxItems(reasons) + '</div>' +
-          '</div>' + commonStageFooter();
+            '<div class="question-title">再勾選你們的理由（至少選對 2 個）</div>' +
+            '<div class="option-grid">';
+
+        stage.reasons.forEach(function (reason, idx) {
+          html += '<label class="check-item" data-check-index="' + idx + '">' +
+            '<input type="checkbox" data-correct="' + (reason.correct ? 'true' : 'false') + '" />' +
+            '<span>' + escapeHtml(reason.label) + '</span>' +
+          '</label>';
+        });
+
+        html += '</div></div>' +
+          '<div class="stage-actions">' +
+            '<button class="btn-primary" id="submitStageBtn">送出本關答案</button>' +
+            '<button class="btn-light" id="quitBtn">結束闖關</button>' +
+          '</div>' +
+          '<div id="feedbackWrap"></div>';
 
         stageCard.innerHTML = html;
         bindChoiceButtons(true);
@@ -1613,7 +1370,7 @@
             return;
           }
           var cardPassed = selectedCard.getAttribute('data-value') === stage.correctCard;
-          var reasonPassed = correctHits >= Number(stage.minCorrectReasons || 2) && wrongHits === 0;
+          var reasonPassed = correctHits >= stage.minCorrectReasons && wrongHits === 0;
           var passed = cardPassed && reasonPassed;
           submitStageResult({
             title: stage.title,
@@ -1624,13 +1381,14 @@
       }
 
       function renderSearchStage(stage) {
-        var html = stageHeader(stage) +
+        var html = '<h2 class="stage-title">' + escapeHtml(stage.title) + '</h2>' +
+          '<p class="stage-subtitle">' + escapeHtml(stage.subtitle) + '</p>' +
           '<div class="search-box">' +
-            '<p class="search-task">' + escapeHtml(stage.task || '') + '</p>' +
-            '<div class="help">' + escapeHtml(stage.suggestion || '') + '</div>' +
+            '<p class="search-task">' + escapeHtml(stage.task) + '</p>' +
+            '<div class="help">' + escapeHtml(stage.suggestion) + '</div>' +
             '<div class="field" style="margin-top:12px; margin-bottom:10px;">' +
               '<label for="keywordInput">你們想用的搜尋關鍵字</label>' +
-              '<input id="keywordInput" type="text" maxlength="80" placeholder="' + escapeAttribute(getSearchPlaceholder(stage)) + '" value="' + escapeAttribute(getSearchPrefill(stage)) + '" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />' +
+              '<input id="keywordInput" type="text" maxlength="60" placeholder="先想關鍵字，再按搜尋" value="' + escapeAttribute(stage.defaultQuery) + '" />' +
             '</div>' +
             '<div class="actions">' +
               '<a href="#" class="link-btn btn-secondary" id="searchLink">用 Google 搜尋</a>' +
@@ -1640,9 +1398,14 @@
           '<div class="answer-area">' +
             '<div class="field">' +
               '<label for="answerInput">請輸入你們查到的答案</label>' +
-              '<textarea id="answerInput" rows="4" placeholder="' + escapeAttribute(stage.answerHint || '') + '"></textarea>' +
+              '<textarea id="answerInput" rows="4" placeholder="' + escapeAttribute(stage.answerHint) + '"></textarea>' +
             '</div>' +
-          '</div>' + commonStageFooter();
+          '</div>' +
+          '<div class="stage-actions">' +
+            '<button class="btn-primary" id="submitStageBtn">送出本關答案</button>' +
+            '<button class="btn-light" id="quitBtn">結束闖關</button>' +
+          '</div>' +
+          '<div id="feedbackWrap"></div>';
 
         stageCard.innerHTML = html;
         bindCommonButtons();
@@ -1651,11 +1414,7 @@
         var keywordInput = document.getElementById('keywordInput');
         searchLink.addEventListener('click', function (event) {
           event.preventDefault();
-          var q = trim(keywordInput.value);
-          if (!q) {
-            showInlineFeedback('請先輸入搜尋關鍵字。', false, false);
-            return;
-          }
+          var q = trim(keywordInput.value) || stage.defaultQuery;
           var url = 'https://www.google.com/search?q=' + encodeURIComponent(q);
           window.open(url, '_blank');
         });
@@ -1671,41 +1430,13 @@
             showInlineFeedback('請先輸入你們查到的答案。', false, false);
             return;
           }
-          var passed = validateSearchAnswer(answer, stage.validation);
+          var passed = stage.evaluator(answer);
           submitStageResult({
             title: stage.title,
             passed: passed,
             detail: '你們使用的關鍵字：' + escapeHtml(keyword) + '<br>' + (passed ? stage.successText : stage.failText)
           });
         });
-      }
-
-      function renderChoiceButtons(options, groupName) {
-        return (options || []).map(function (option) {
-          return '<button type="button" class="choice-btn"' +
-            (groupName ? ' data-group="' + escapeAttribute(groupName) + '"' : '') +
-            ' data-value="' + escapeAttribute(option.value) + '">' +
-            escapeHtml(option.label) +
-          '</button>';
-        }).join('');
-      }
-
-      function renderCheckboxItems(items) {
-        return (items || []).map(function (item, idx) {
-          return '<label class="check-item" data-check-index="' + idx + '">' +
-            '<input type="checkbox" data-correct="' + (item.correct ? 'true' : 'false') + '" />' +
-            '<span>' + escapeHtml(item.label) + '</span>' +
-          '</label>';
-        }).join('');
-      }
-
-      function commonStageFooter() {
-        return '' +
-          '<div class="stage-actions">' +
-            '<button class="btn-primary" id="submitStageBtn">送出本關答案</button>' +
-            '<button class="btn-light" id="quitBtn">結束闖關</button>' +
-          '</div>' +
-          '<div id="feedbackWrap"></div>';
       }
 
       function bindChoiceButtons(grouped) {
@@ -1815,9 +1546,10 @@
         var total = levels[state.level].stages.length;
         var tag = '數位新手';
         var summary = '你們已經完成這次數位闖關，記得遇到可疑資訊時，要先停下來、先想一想，再查證。';
+        var isPerfectPass = !isTimeout && score === total;
         if (score === total) {
           tag = '數位小達人';
-          summary = '太棒了，你們全部過關，已經具備很好的網路安全、假訊息辨識與搜尋合作能力。';
+          summary = '太棒了，你們三關全過，已經具備很好的網路安全、假訊息辨識與搜尋合作能力。';
         } else if (score === total - 1) {
           tag = '數位小尖兵';
           summary = '表現很不錯，再多練習查證與搜尋關鍵字，就能升級成數位小達人。';
@@ -1833,17 +1565,32 @@
             '</div>';
         }).join('');
 
+        var heroHtml = '';
+        if (isPerfectPass) {
+          heroHtml = '' +
+            '<div class="victory-screen">' +
+              '<div class="victory-sparkles">🎉 ⭐ 🏆 ⭐ 🎉</div>' +
+              '<div class="victory-badge">恭喜三關全部通過！</div>' +
+              '<div class="victory-title">闖關成功！</div>' +
+              '<p class="victory-subtitle">你們是最棒的 <strong>數位小達人</strong>！<br>網路安全、假訊息辨識、平板搜尋三關全部過關！</p>' +
+              '<div class="victory-team">' + escapeHtml(buildTeamName()) + '｜作答時間：' + formatTime(usedSeconds) + '</div>' +
+            '</div>';
+        } else {
+          heroHtml = '' +
+            '<div class="result-tag">' + escapeHtml(tag) + '</div>' +
+            '<h2 class="result-title">闖關結果</h2>' +
+            '<div class="score-big">' + score + ' / ' + total + '</div>' +
+            '<p class="result-summary">' + (isTimeout ? '時間到了，系統已自動結算。<br>' : '') + escapeHtml(summary) + '</p>';
+        }
+
         resultSection.innerHTML = '' +
-          '<div class="result-tag">🏆 ' + escapeHtml(tag) + '</div>' +
-          '<h2 class="result-title"><span class="emoji">🎉</span>闖關結果</h2>' +
-          '<div class="score-big">' + score + ' / ' + total + '</div>' +
-          '<p class="result-summary">' + (isTimeout ? '時間到了，系統已自動結算。<br>' : '') + escapeHtml(summary) + '</p>' +
+          heroHtml +
+          (isPerfectPass ? '<div class="score-big">' + score + ' / ' + total + '</div><p class="result-summary">' + escapeHtml(summary) + '</p>' : '') +
           '<div class="result-item">' +
             '<strong>隊伍資訊</strong>' +
             '<div class="result-meta">' + escapeHtml(buildTeamName()) + '<br>' +
-            '等級：' + escapeHtml(levels[state.level].label) + '｜' + escapeHtml(levels[state.level].grade || '') + '<br>' +
-            '作答時間：' + formatTime(usedSeconds) + '<br>' +
-            '題庫來源：' + escapeHtml(currentSourceLabel) + '</div>' +
+            '等級：' + escapeHtml(levels[state.level].label) + '｜' + escapeHtml(levels[state.level].grade) + '<br>' +
+            '作答時間：' + formatTime(usedSeconds) + '</div>' +
           '</div>' +
           '<div class="result-list">' + detailHtml + '</div>' +
           '<div class="actions">' +
@@ -1854,8 +1601,6 @@
         document.getElementById('restartSameLevelBtn').addEventListener('click', function () {
           gameSection.classList.add('hidden');
           resultSection.classList.add('hidden');
-          historySection.classList.remove('hidden');
-          footerNote.classList.remove('hidden');
           startGame(false);
         });
 
@@ -1870,8 +1615,6 @@
         resultSection.classList.add('hidden');
         homeSection.classList.remove('hidden');
         setupArea.classList.remove('hidden');
-        historySection.classList.remove('hidden');
-        footerNote.classList.remove('hidden');
         progressBar.style.width = '0%';
         updateTimerText();
       }
@@ -1882,14 +1625,14 @@
           className: state.className || '未填班級',
           teamName: state.teamName || '未命名小組',
           memberNames: state.memberNames,
-          level: levels[state.level].label + '｜' + (levels[state.level].grade || ''),
+          level: levels[state.level].label + '｜' + levels[state.level].grade,
           score: score,
           total: levels[state.level].stages.length,
           usedSeconds: DEFAULT_TIME - state.timeLeft,
           isTimeout: isTimeout,
           createdAt: new Date().toLocaleString('zh-TW', { hour12: false })
         });
-        history = history.slice(0, 20);
+        history = history.slice(0, 12);
         localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
       }
 
@@ -1924,23 +1667,6 @@
         }).join('');
       }
 
-      function validateSearchAnswer(answer, validation) {
-        if (!validation || !validation.groups || !validation.groups.length) {
-          return trim(answer).length > 0;
-        }
-        var normalized = normalize(answer);
-        var groups = validation.groups;
-        var hits = 0;
-        groups.forEach(function (group) {
-          var terms = Array.isArray(group) ? group : [group];
-          var matched = terms.some(function (term) {
-            return normalized.indexOf(normalize(term)) !== -1;
-          });
-          if (matched) { hits++; }
-        });
-        return hits >= Number(validation.minGroups || 1);
-      }
-
       function formatTime(totalSeconds) {
         var safe = Math.max(0, totalSeconds || 0);
         var min = Math.floor(safe / 60);
@@ -1957,39 +1683,7 @@
       }
 
       function normalize(value) {
-        return trim(value).replace(/\s+/g, '').replace(/[，、。,.！!？?；;：:]/g, '').toLowerCase();
-      }
-
-      function shuffle(list) {
-        var arr = clone(list);
-        for (var i = arr.length - 1; i > 0; i--) {
-          var j = Math.floor(Math.random() * (i + 1));
-          var temp = arr[i];
-          arr[i] = arr[j];
-          arr[j] = temp;
-        }
-        return arr;
-      }
-
-      function clone(obj) {
-        return JSON.parse(JSON.stringify(obj || null));
-      }
-
-      function pickRandomItem(list) {
-        if (!list || !list.length) { return ''; }
-        return list[Math.floor(Math.random() * list.length)];
-      }
-
-      function getSearchPrefill(stage) {
-        if (stage && stage.visibleKeywordOptions && stage.visibleKeywordOptions.length) {
-          return pickRandomItem(stage.visibleKeywordOptions);
-        }
-        return '';
-      }
-
-      function getSearchPlaceholder(stage) {
-        if (stage && stage.keywordPlaceholder) { return stage.keywordPlaceholder; }
-        return '先想關鍵字，再按搜尋';
+        return trim(value).replace(/\s+/g, '').replace(/[，、。,.！!？?；;：:]/g, '');
       }
 
       function escapeHtml(value) {
