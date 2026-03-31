@@ -903,13 +903,13 @@
                 subtitle: '先想關鍵字，再用平板搜尋，最後輸入你們找到的答案。',
                 type: 'search',
                 task: '請搜尋：台灣最高的山是什麼？',
-                suggestion: '可以試試看關鍵字：台灣 最高的山',
-                defaultQuery: '台灣 最高的山',
+                suggestion: '先想主題，再想要找的是哪一類資訊。',
+                keywordPlaceholder: '例如：台灣 最高 山',
                 validation: {
                   minGroups: 1,
                   groups: [['玉山']]
                 },
-                answerHint: '請輸入你們查到的答案，例如：玉山',
+                answerHint: '請輸入你們查到的答案',
                 successText: '答對了，台灣最高的山是玉山。',
                 failText: '還差一點，常見答案是「玉山」。'
               }
@@ -976,13 +976,13 @@
                 subtitle: '試著用關鍵字搜尋，再輸入你們找到的答案。',
                 type: 'search',
                 task: '請搜尋：地震來時要怎麼保護自己？',
-                suggestion: '可以試試看關鍵字：地震 保護自己 或 趴下 掩護 穩住',
-                defaultQuery: '地震 保護自己 趴下 掩護 穩住',
+                suggestion: '先想主題，再想保護方法。',
+                keywordPlaceholder: '例如：地震 保護方法',
                 validation: {
                   minGroups: 2,
                   groups: [['趴下'], ['掩護'], ['穩住']]
                 },
-                answerHint: '請輸入你們找到的重點，例如：趴下、掩護、穩住',
+                answerHint: '請輸入你們查到的重點',
                 successText: '答對了，地震保命重點常見是「趴下、掩護、穩住」。',
                 failText: '可再檢查看看，常見重點是「趴下、掩護、穩住」。'
               }
@@ -1041,8 +1041,8 @@
                 subtitle: '搜尋後整理重點，至少寫出 2 個安全密碼原則。',
                 type: 'search',
                 task: '請搜尋：如何設定安全密碼？',
-                suggestion: '可以試試看關鍵字：安全密碼 設定 方法',
-                defaultQuery: '安全密碼 設定 方法',
+                suggestion: '先想主題，再想和密碼有關的做法。',
+                keywordPlaceholder: '例如：安全密碼 設定',
                 validation: {
                   minGroups: 2,
                   groups: [
@@ -1053,7 +1053,7 @@
                     ['符號']
                   ]
                 },
-                answerHint: '請輸入至少 2 個原則，例如：不要用生日、密碼要夠長、混合英文大小寫和數字',
+                answerHint: '請輸入至少 2 個你們查到的原則',
                 successText: '很好，安全密碼通常要夠長，而且不要用太容易猜到的資料。',
                 failText: '可再補充 2 個原則，例如：不要用生日、密碼要夠長、加入數字或符號。'
               }
@@ -1630,7 +1630,7 @@
             '<div class="help">' + escapeHtml(stage.suggestion || '') + '</div>' +
             '<div class="field" style="margin-top:12px; margin-bottom:10px;">' +
               '<label for="keywordInput">你們想用的搜尋關鍵字</label>' +
-              '<input id="keywordInput" type="text" maxlength="80" placeholder="先想關鍵字，再按搜尋" value="' + escapeAttribute(stage.defaultQuery || '') + '" />' +
+              '<input id="keywordInput" type="text" maxlength="80" placeholder="' + escapeAttribute(getSearchPlaceholder(stage)) + '" value="' + escapeAttribute(getSearchPrefill(stage)) + '" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />' +
             '</div>' +
             '<div class="actions">' +
               '<a href="#" class="link-btn btn-secondary" id="searchLink">用 Google 搜尋</a>' +
@@ -1651,7 +1651,11 @@
         var keywordInput = document.getElementById('keywordInput');
         searchLink.addEventListener('click', function (event) {
           event.preventDefault();
-          var q = trim(keywordInput.value) || trim(stage.defaultQuery);
+          var q = trim(keywordInput.value);
+          if (!q) {
+            showInlineFeedback('請先輸入搜尋關鍵字。', false, false);
+            return;
+          }
           var url = 'https://www.google.com/search?q=' + encodeURIComponent(q);
           window.open(url, '_blank');
         });
@@ -1969,6 +1973,23 @@
 
       function clone(obj) {
         return JSON.parse(JSON.stringify(obj || null));
+      }
+
+      function pickRandomItem(list) {
+        if (!list || !list.length) { return ''; }
+        return list[Math.floor(Math.random() * list.length)];
+      }
+
+      function getSearchPrefill(stage) {
+        if (stage && stage.visibleKeywordOptions && stage.visibleKeywordOptions.length) {
+          return pickRandomItem(stage.visibleKeywordOptions);
+        }
+        return '';
+      }
+
+      function getSearchPlaceholder(stage) {
+        if (stage && stage.keywordPlaceholder) { return stage.keywordPlaceholder; }
+        return '先想關鍵字，再按搜尋';
       }
 
       function escapeHtml(value) {

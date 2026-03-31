@@ -9,7 +9,11 @@
       "grade": "1～2年級",
       "description": "題目短、按鈕大，適合低年級一起合作判斷。",
       "emoji": "🐣",
-      "chips": ["低年級", "大按鈕", "合作作答"],
+      "chips": [
+        "低年級",
+        "大按鈕",
+        "合作作答"
+      ],
       "stages": [
         {
           "id": "safety",
@@ -67,15 +71,19 @@
           "subtitle": "先想關鍵字，再用平板搜尋，最後輸入你們找到的答案。",
           "type": "search",
           "task": "請搜尋：台灣最高的山是什麼？",
-          "suggestion": "可以試試看關鍵字：台灣 最高的山",
-          "defaultQuery": "台灣 最高的山",
+          "suggestion": "先想主題，再想要找的是哪一類資訊。",
           "validation": {
             "minGroups": 1,
-            "groups": [["玉山"]]
+            "groups": [
+              [
+                "玉山"
+              ]
+            ]
           },
-          "answerHint": "請輸入你們查到的答案，例如：玉山",
+          "answerHint": "請輸入你們查到的答案",
           "successText": "答對了，台灣最高的山是玉山。",
-          "failText": "還差一點，常見答案是「玉山」。"
+          "failText": "還差一點，常見答案是「玉山」。",
+          "keywordPlaceholder": "例如：台灣 最高 山"
         }
       ]
     },
@@ -84,7 +92,11 @@
       "grade": "3～4年級",
       "description": "加入情境討論與關鍵字思考，適合中年級合作挑戰。",
       "emoji": "🐬",
-      "chips": ["中年級", "情境判斷", "關鍵字搜尋"],
+      "chips": [
+        "中年級",
+        "情境判斷",
+        "關鍵字搜尋"
+      ],
       "stages": [
         {
           "id": "safety",
@@ -97,9 +109,18 @@
             {
               "text": "有人傳訊息說：「快點這個連結，可以免費領遊戲寶物！」你們覺得怎麼做比較安全？",
               "options": [
-                { "label": "先點開看看再說", "value": "a" },
-                { "label": "不要亂點，先問老師或家長", "value": "b" },
-                { "label": "直接把連結傳給更多同學", "value": "c" }
+                {
+                  "label": "先點開看看再說",
+                  "value": "a"
+                },
+                {
+                  "label": "不要亂點，先問老師或家長",
+                  "value": "b"
+                },
+                {
+                  "label": "直接把連結傳給更多同學",
+                  "value": "c"
+                }
               ],
               "correct": "b",
               "explanation": "陌生連結不要亂點，先確認最安全。"
@@ -107,9 +128,18 @@
             {
               "text": "同學說想借你的遊戲帳號登入一下，哪個做法比較好？",
               "options": [
-                { "label": "把帳號密碼直接給他", "value": "a" },
-                { "label": "拒絕分享帳號密碼", "value": "b" },
-                { "label": "把密碼寫在紙上給他", "value": "c" }
+                {
+                  "label": "把帳號密碼直接給他",
+                  "value": "a"
+                },
+                {
+                  "label": "拒絕分享帳號密碼",
+                  "value": "b"
+                },
+                {
+                  "label": "把密碼寫在紙上給他",
+                  "value": "c"
+                }
               ],
               "correct": "b",
               "explanation": "帳號密碼屬於個人資料，不可以隨便分享。"
@@ -123,10 +153,22 @@
           "type": "checkboxThreshold",
           "prompt": "緊急通知！今天晚上 12 點後不能睡覺，政府要測試神秘電波，快傳給 10 個人！",
           "choices": [
-            { "label": "內容太誇張", "correct": true },
-            { "label": "沒有清楚來源", "correct": true },
-            { "label": "要求立刻轉傳", "correct": true },
-            { "label": "這則訊息一定最可靠", "correct": false }
+            {
+              "label": "內容太誇張",
+              "correct": true
+            },
+            {
+              "label": "沒有清楚來源",
+              "correct": true
+            },
+            {
+              "label": "要求立刻轉傳",
+              "correct": true
+            },
+            {
+              "label": "這則訊息一定最可靠",
+              "correct": false
+            }
           ],
           "shuffleChoices": true,
           "minCorrect": 2,
@@ -140,15 +182,25 @@
           "subtitle": "試著用關鍵字搜尋，再輸入你們找到的答案。",
           "type": "search",
           "task": "請搜尋：地震來時要怎麼保護自己？",
-          "suggestion": "可以試試看關鍵字：地震 保護自己 或 趴下 掩護 穩住",
-          "defaultQuery": "地震 保護自己 趴下 掩護 穩住",
+          "suggestion": "先想主題，再想保護方法。",
           "validation": {
             "minGroups": 2,
-            "groups": [["趴下"], ["掩護"], ["穩住"]]
+            "groups": [
+              [
+                "趴下"
+              ],
+              [
+                "掩護"
+              ],
+              [
+                "穩住"
+              ]
+            ]
           },
-          "answerHint": "請輸入你們找到的重點，例如：趴下、掩護、穩住",
+          "answerHint": "請輸入你們查到的重點",
           "successText": "答對了，地震保命重點常見是「趴下、掩護、穩住」。",
-          "failText": "可再檢查看看，常見重點是「趴下、掩護、穩住」。"
+          "failText": "可再檢查看看，常見重點是「趴下、掩護、穩住」。",
+          "keywordPlaceholder": "例如：地震 保護方法"
         }
       ]
     },
@@ -157,7 +209,11 @@
       "grade": "5～6年級",
       "description": "需要分析、比較與說明理由，適合高年級進階挑戰。",
       "emoji": "🦉",
-      "chips": ["高年級", "分析判斷", "理由說明"],
+      "chips": [
+        "高年級",
+        "分析判斷",
+        "理由說明"
+      ],
       "stages": [
         {
           "id": "safety",
@@ -166,10 +222,22 @@
           "type": "checkboxThreshold",
           "prompt": "小華在留言區公開寫下自己的本名、班級、手機號碼，還點開陌生人傳來的抽獎網址。",
           "choices": [
-            { "label": "公開本名和班級", "correct": true },
-            { "label": "留下手機號碼", "correct": true },
-            { "label": "點開陌生抽獎網址", "correct": true },
-            { "label": "先問老師再處理", "correct": false }
+            {
+              "label": "公開本名和班級",
+              "correct": true
+            },
+            {
+              "label": "留下手機號碼",
+              "correct": true
+            },
+            {
+              "label": "點開陌生抽獎網址",
+              "correct": true
+            },
+            {
+              "label": "先問老師再處理",
+              "correct": false
+            }
           ],
           "shuffleChoices": true,
           "minCorrect": 2,
@@ -196,10 +264,22 @@
           ],
           "shuffleCardChoices": true,
           "reasons": [
-            { "label": "有明確查證方向", "correct": true },
-            { "label": "不是只靠朋友轉述", "correct": true },
-            { "label": "因為看起來比較刺激", "correct": false },
-            { "label": "因為叫大家快轉傳", "correct": false }
+            {
+              "label": "有明確查證方向",
+              "correct": true
+            },
+            {
+              "label": "不是只靠朋友轉述",
+              "correct": true
+            },
+            {
+              "label": "因為看起來比較刺激",
+              "correct": false
+            },
+            {
+              "label": "因為叫大家快轉傳",
+              "correct": false
+            }
           ],
           "shuffleReasons": true,
           "correctCard": "b",
@@ -213,21 +293,37 @@
           "subtitle": "搜尋後整理重點，至少寫出 2 個安全密碼原則。",
           "type": "search",
           "task": "請搜尋：如何設定安全密碼？",
-          "suggestion": "可以試試看關鍵字：安全密碼 設定 方法",
-          "defaultQuery": "安全密碼 設定 方法",
+          "suggestion": "先想主題，再想和密碼有關的做法。",
           "validation": {
             "minGroups": 2,
             "groups": [
-              ["不要用生日", "不用生日", "別用生日"],
-              ["8碼", "至少8", "越長越好", "長度"],
-              ["大小寫", "英文"],
-              ["數字"],
-              ["符號"]
+              [
+                "不要用生日",
+                "不用生日",
+                "別用生日"
+              ],
+              [
+                "8碼",
+                "至少8",
+                "越長越好",
+                "長度"
+              ],
+              [
+                "大小寫",
+                "英文"
+              ],
+              [
+                "數字"
+              ],
+              [
+                "符號"
+              ]
             ]
           },
-          "answerHint": "請輸入至少 2 個原則，例如：不要用生日、密碼要夠長、混合英文大小寫和數字",
+          "answerHint": "請輸入至少 2 個你們查到的原則",
           "successText": "很好，安全密碼通常要夠長，而且不要用太容易猜到的資料。",
-          "failText": "可再補充 2 個原則，例如：不要用生日、密碼要夠長、加入數字或符號。"
+          "failText": "可再補充 2 個原則，例如：不要用生日、密碼要夠長、加入數字或符號。",
+          "keywordPlaceholder": "例如：安全密碼 設定"
         }
       ]
     }
