@@ -1,0 +1,235 @@
+{
+  "meta": {
+    "title": "數位小達人闖關王",
+    "subtitle": "和同學一起挑戰網路安全、假訊息辨識、平板搜尋任務，5 分鐘內完成關卡，看看你們能不能成為最強數位小隊！"
+  },
+  "levels": {
+    "easy": {
+      "label": "簡單級",
+      "grade": "1～2年級",
+      "description": "題目短、按鈕大，適合低年級一起合作判斷。",
+      "emoji": "🐣",
+      "chips": ["低年級", "大按鈕", "合作作答"],
+      "stages": [
+        {
+          "id": "safety",
+          "title": "第一關｜網路安全判斷",
+          "subtitle": "看題目後一起選「對」或「不對」。答對 2 題以上就過關。",
+          "type": "truefalse",
+          "passScore": 2,
+          "shuffleOptions": true,
+          "questions": [
+            {
+              "text": "不認識的人在網路上問我家住哪裡，我可以直接告訴他。",
+              "correct": false,
+              "explanation": "個人資料不能隨便告訴陌生人。"
+            },
+            {
+              "text": "看到不明連結時，先不要亂點，應該問老師或家長。",
+              "correct": true,
+              "explanation": "遇到陌生連結要先停下來、先確認。"
+            },
+            {
+              "text": "我的帳號密碼可以借給同學一起使用。",
+              "correct": false,
+              "explanation": "帳號和密碼要保護好，不能隨便分享。"
+            }
+          ]
+        },
+        {
+          "id": "misinfo",
+          "title": "第二關｜假訊息辨識",
+          "subtitle": "看到訊息時，先想一想：要不要查證？答對 2 題以上就過關。",
+          "type": "verify",
+          "passScore": 2,
+          "shuffleOptions": true,
+          "questions": [
+            {
+              "text": "「轉傳這則訊息，今晚就會得到神秘禮物！」",
+              "correct": "verify",
+              "explanation": "這種要求立刻轉傳的訊息，要先查證。"
+            },
+            {
+              "text": "「今天會不會下雨，可以查看氣象資訊。」",
+              "correct": "trust",
+              "explanation": "天氣資訊可以看正式的氣象資料。"
+            },
+            {
+              "text": "「喝一瓶神奇飲料就永遠不會生病。」",
+              "correct": "verify",
+              "explanation": "太誇張的說法要先查證，不要馬上相信。"
+            }
+          ]
+        },
+        {
+          "id": "search",
+          "title": "第三關｜平板快速搜尋",
+          "subtitle": "先想關鍵字，再用平板搜尋，最後輸入你們找到的答案。",
+          "type": "search",
+          "task": "請搜尋：台灣最高的山是什麼？",
+          "suggestion": "可以試試看關鍵字：台灣 最高的山",
+          "defaultQuery": "台灣 最高的山",
+          "validation": {
+            "minGroups": 1,
+            "groups": [["玉山"]]
+          },
+          "answerHint": "請輸入你們查到的答案，例如：玉山",
+          "successText": "答對了，台灣最高的山是玉山。",
+          "failText": "還差一點，常見答案是「玉山」。"
+        }
+      ]
+    },
+    "medium": {
+      "label": "中等級",
+      "grade": "3～4年級",
+      "description": "加入情境討論與關鍵字思考，適合中年級合作挑戰。",
+      "emoji": "🐬",
+      "chips": ["中年級", "情境判斷", "關鍵字搜尋"],
+      "stages": [
+        {
+          "id": "safety",
+          "title": "第一關｜網路安全判斷",
+          "subtitle": "看情境後，選出最安全的做法。答對 2 題以上就過關。",
+          "type": "singlechoice",
+          "passScore": 2,
+          "shuffleOptions": true,
+          "questions": [
+            {
+              "text": "有人傳訊息說：「快點這個連結，可以免費領遊戲寶物！」你們覺得怎麼做比較安全？",
+              "options": [
+                { "label": "先點開看看再說", "value": "a" },
+                { "label": "不要亂點，先問老師或家長", "value": "b" },
+                { "label": "直接把連結傳給更多同學", "value": "c" }
+              ],
+              "correct": "b",
+              "explanation": "陌生連結不要亂點，先確認最安全。"
+            },
+            {
+              "text": "同學說想借你的遊戲帳號登入一下，哪個做法比較好？",
+              "options": [
+                { "label": "把帳號密碼直接給他", "value": "a" },
+                { "label": "拒絕分享帳號密碼", "value": "b" },
+                { "label": "把密碼寫在紙上給他", "value": "c" }
+              ],
+              "correct": "b",
+              "explanation": "帳號密碼屬於個人資料，不可以隨便分享。"
+            }
+          ]
+        },
+        {
+          "id": "misinfo",
+          "title": "第二關｜假訊息辨識",
+          "subtitle": "選出這則訊息裡可疑的地方。至少選對 2 個，而且不要亂選。",
+          "type": "checkboxThreshold",
+          "prompt": "緊急通知！今天晚上 12 點後不能睡覺，政府要測試神秘電波，快傳給 10 個人！",
+          "choices": [
+            { "label": "內容太誇張", "correct": true },
+            { "label": "沒有清楚來源", "correct": true },
+            { "label": "要求立刻轉傳", "correct": true },
+            { "label": "這則訊息一定最可靠", "correct": false }
+          ],
+          "shuffleChoices": true,
+          "minCorrect": 2,
+          "maxWrong": 0,
+          "successText": "你們找到了可疑線索，這類訊息要先停、先想、先查證。",
+          "failText": "再觀察看看：太誇張、沒來源、一直叫人轉傳，通常都很可疑。"
+        },
+        {
+          "id": "search",
+          "title": "第三關｜平板快速搜尋",
+          "subtitle": "試著用關鍵字搜尋，再輸入你們找到的答案。",
+          "type": "search",
+          "task": "請搜尋：地震來時要怎麼保護自己？",
+          "suggestion": "可以試試看關鍵字：地震 保護自己 或 趴下 掩護 穩住",
+          "defaultQuery": "地震 保護自己 趴下 掩護 穩住",
+          "validation": {
+            "minGroups": 2,
+            "groups": [["趴下"], ["掩護"], ["穩住"]]
+          },
+          "answerHint": "請輸入你們找到的重點，例如：趴下、掩護、穩住",
+          "successText": "答對了，地震保命重點常見是「趴下、掩護、穩住」。",
+          "failText": "可再檢查看看，常見重點是「趴下、掩護、穩住」。"
+        }
+      ]
+    },
+    "hard": {
+      "label": "略難級",
+      "grade": "5～6年級",
+      "description": "需要分析、比較與說明理由，適合高年級進階挑戰。",
+      "emoji": "🦉",
+      "chips": ["高年級", "分析判斷", "理由說明"],
+      "stages": [
+        {
+          "id": "safety",
+          "title": "第一關｜網路安全判斷",
+          "subtitle": "找出情境中的危險行為。至少選對 2 個，而且不要選錯。",
+          "type": "checkboxThreshold",
+          "prompt": "小華在留言區公開寫下自己的本名、班級、手機號碼，還點開陌生人傳來的抽獎網址。",
+          "choices": [
+            { "label": "公開本名和班級", "correct": true },
+            { "label": "留下手機號碼", "correct": true },
+            { "label": "點開陌生抽獎網址", "correct": true },
+            { "label": "先問老師再處理", "correct": false }
+          ],
+          "shuffleChoices": true,
+          "minCorrect": 2,
+          "maxWrong": 0,
+          "successText": "判斷正確，公開個資和亂點連結都很危險。",
+          "failText": "再想想看：公開個資、留下手機、點陌生網址都不安全。"
+        },
+        {
+          "id": "misinfo",
+          "title": "第二關｜假訊息辨識",
+          "subtitle": "選出比較可信的一則，再選理由。要兩個都答對才過關。",
+          "type": "credibility",
+          "cards": [
+            {
+              "id": "a",
+              "title": "訊息 A",
+              "body": "快轉傳！明天全台停課，這是朋友說的！"
+            },
+            {
+              "id": "b",
+              "title": "訊息 B",
+              "body": "停課資訊請以學校公告或政府正式通知為準。"
+            }
+          ],
+          "shuffleCardChoices": true,
+          "reasons": [
+            { "label": "有明確查證方向", "correct": true },
+            { "label": "不是只靠朋友轉述", "correct": true },
+            { "label": "因為看起來比較刺激", "correct": false },
+            { "label": "因為叫大家快轉傳", "correct": false }
+          ],
+          "shuffleReasons": true,
+          "correctCard": "b",
+          "minCorrectReasons": 2,
+          "successText": "判斷很好，可信資訊通常有來源或查證方向。",
+          "failText": "再想想看：只靠朋友轉述、催人轉傳的訊息比較不可靠。"
+        },
+        {
+          "id": "search",
+          "title": "第三關｜平板快速搜尋",
+          "subtitle": "搜尋後整理重點，至少寫出 2 個安全密碼原則。",
+          "type": "search",
+          "task": "請搜尋：如何設定安全密碼？",
+          "suggestion": "可以試試看關鍵字：安全密碼 設定 方法",
+          "defaultQuery": "安全密碼 設定 方法",
+          "validation": {
+            "minGroups": 2,
+            "groups": [
+              ["不要用生日", "不用生日", "別用生日"],
+              ["8碼", "至少8", "越長越好", "長度"],
+              ["大小寫", "英文"],
+              ["數字"],
+              ["符號"]
+            ]
+          },
+          "answerHint": "請輸入至少 2 個原則，例如：不要用生日、密碼要夠長、混合英文大小寫和數字",
+          "successText": "很好，安全密碼通常要夠長，而且不要用太容易猜到的資料。",
+          "failText": "可再補充 2 個原則，例如：不要用生日、密碼要夠長、加入數字或符號。"
+        }
+      ]
+    }
+  }
+}
